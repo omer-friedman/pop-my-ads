@@ -53,7 +53,7 @@ def get_ad_name(browser, ad_url):
     browser.get(ad_url)
     try:
         ad_name = browser.find_element_by_id("info_title").text
-    except Exception:
+    except Exception as e:
         ad_name = browser.find_element_by_id("info").text
     ad_name = ad_name[ad_name.find(":")+1:].strip()
     return ad_name
