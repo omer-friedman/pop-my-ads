@@ -107,17 +107,20 @@ def create_ad_list(browser):
     for category_url in active_categories_url:
         get_ads_from_category_url(browser, category_url, ads)
     return ads
-    
+
+
 @app.route("/")
+@app.route("/index.html")
 def index():
     return render_template('index.html')
+
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
     if request.method == 'POST':
-        userNameFromJS = request.form['username']
-        passwordFromJS = request.form['password']
-        browser = login_to_yad2(userNameFromJS, passwordFromJS)
+        user_name = request.form['username']
+        password = request.form['password']
+        browser = login_to_yad2(user_name, password)
     else :
         browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
     advertisements = create_ad_list(browser)
@@ -129,4 +132,4 @@ def main():
 
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
