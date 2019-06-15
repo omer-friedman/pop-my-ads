@@ -8,10 +8,11 @@ app = Flask(__name__, template_folder='.')
 
 
 class Advertisment:
-    def __init__(self, ad_name, ad_url, ad_next_bounce, is_bounce_valid=False):
+    def __init__(self, ad_name, ad_url, ad_next_bounce, ad_status, is_bounce_valid=False):
         self.ad_name = ad_name
         self.ad_url = ad_url
         self.ad_next_bounc = ad_next_bounce
+        self.ad_status = ad_status
         self.is_bounce_valid = is_bounce_valid
 
     def print_me(self):
@@ -19,6 +20,7 @@ class Advertisment:
         print("ad url:       "+self.ad_url.__str__())
         print("next bounce:  "+self.ad_next_bounc.__str__())
         print("is_bouncable: "+self.is_bounce_valid.__str__())
+        print("ad status: "+self.ad_status.__str__())
 
 
 def login_to_yad2(username, password):
@@ -42,8 +44,7 @@ def get_active_categories_url(browser):
     return active_categories_urls
 
 
-def get_next_bounce_time(browser, ad_url):
-    browser.get(ad_url)
+def get_next_bounce_time(browser):
     desc = browser.find_element_by_xpath("//div[@class='desc orange']").text
     match = re.search('([0-9][0-9]:[0-9][0-9])', desc)
     time = ""
@@ -52,8 +53,7 @@ def get_next_bounce_time(browser, ad_url):
     return time
 
 
-def get_ad_name(browser, ad_url):
-    browser.get(ad_url)
+def get_ad_name(browser):
     try:
         ad_name = browser.find_element_by_id("info_title").text
     except Exception:
@@ -62,18 +62,35 @@ def get_ad_name(browser, ad_url):
     return ad_name
 
 
+def rerun_expired_ad(browser, ad_url):
+    browser.get(ad_url)
+    expired_msg_xpath = "//div[@class='desc orange']/div[@class='expired_msg']/a[@href]"
+    expired_url = browser.find_element_by_xpath(expired_msg_xpath).get_attribute('href')
+    if not expired_url:
+        pass
+    browser.get(expired_url)
+
+
 def get_ads_from_category_url(browser, category_url, ads):
     browser.get(category_url)
-    ads_element = browser.find_elements_by_xpath("//*[@id='feed']/tbody/tr[@data-frame]")
-    urls = []
+    ads_url_element = browser.find_elements_by_xpath("//*[@id='feed']/tbody/tr[@data-frame]")
+    ads_details_element = browser.find_elements_by_xpath("//*[@id='feed']/tbody/tr[@class='item item-color-1']/td[contains(@class, 'status_wrapper')]/div")
+    url_and_status = []
+    for i in range(0, len(ads_url_element)):
+        url = "http:"+ads_url_element[i].get_attribute("data-frame")
+        status = ads_details_element[i].text
+        url_and_status.append((url, status))
 
-    for ad_element in ads_element:
-        urls.append("http:"+ad_element.get_attribute("data-frame"))
-
-    for ad_url in urls:
-        next_bounce_time = get_next_bounce_time(browser, ad_url)
-        ad_name = get_ad_name(browser, ad_url)
-        ad = Advertisment(ad_name, ad_url, next_bounce_time, False)
+    for ad_url, ad_status in url_and_status:
+        browser.get(ad_url)
+        if "מודעה פעילה" in ad_status:
+            next_bounce_time = get_next_bounce_time(browser)
+            is_bouncable = False if next_bounce_time else True
+        else:
+            next_bounce_time = ""
+            is_bouncable = False
+        ad_name = get_ad_name(browser)
+        ad = Advertisment(ad_name, ad_url, next_bounce_time, ad_status, is_bouncable)
         ads.append(ad)
 
 
@@ -89,7 +106,6 @@ def create_ad_list(browser):
     ads = []
     for category_url in active_categories_url:
         get_ads_from_category_url(browser, category_url, ads)
-
     return ads
     
 @app.route("/")
@@ -105,6 +121,7 @@ def main():
     else :
         browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
     advertisements = create_ad_list(browser)
+    # reorder_expired_ads
     for ad in advertisements:
         print("-"*80)
         ad.print_me()
