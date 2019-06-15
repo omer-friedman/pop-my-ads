@@ -1,6 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from flask import Flask, render_template, redirect, url_for,request
+from flask import make_response
 import re
+app = Flask(__name__, template_folder='.')
+
 
 
 class Advertisment:
@@ -18,7 +22,7 @@ class Advertisment:
 
 
 def login_to_yad2(username, password):
-    browser = webdriver.Chrome("chromedriver")
+    browser = webdriver.Chrome("chromedriver75win")
     browser.get("https://my.yad2.co.il/login.php")
     if not browser.current_url == "https://my.yad2.co.il/login.php":
         return browser
@@ -87,10 +91,19 @@ def create_ad_list(browser):
         get_ads_from_category_url(browser, category_url, ads)
 
     return ads
+    
+@app.route("/")
+def index():
+    return render_template('index.html')
 
-
+@app.route('/main', methods=['GET', 'POST'])
 def main():
-    browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
+    if request.method == 'POST':
+        userNameFromJS = request.form['username']
+        passwordFromJS = request.form['password']
+        browser = login_to_yad2(userNameFromJS, passwordFromJS)
+    else :
+        browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
     advertisements = create_ad_list(browser)
     for ad in advertisements:
         print("-"*80)
@@ -99,4 +112,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    app.run(debug = True)
