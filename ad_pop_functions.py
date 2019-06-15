@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import re
-# from tkinter import *
 
 
 class Advertisment:
@@ -53,7 +52,7 @@ def get_ad_name(browser, ad_url):
     browser.get(ad_url)
     try:
         ad_name = browser.find_element_by_id("info_title").text
-    except Exception as e:
+    except Exception:
         ad_name = browser.find_element_by_id("info").text
     ad_name = ad_name[ad_name.find(":")+1:].strip()
     return ad_name
@@ -70,18 +69,15 @@ def get_ads_from_category_url(browser, category_url, ads):
     for ad_url in urls:
         next_bounce_time = get_next_bounce_time(browser, ad_url)
         ad_name = get_ad_name(browser, ad_url)
-        ad = Advertisment(ad_name, ad_url, next_bounce_time, False if next_bounce_time else True)
+        ad = Advertisment(ad_name, ad_url, next_bounce_time, False)
         ads.append(ad)
 
 
-# def handle_active_ads(browser, active_ads):
-#     urls = []
-#     for ad in active_ads:
-#         urls.append("http:"+ad.get_attribute("data-frame"))
-#     for url in urls:
-#         browser.get(url)
-#         bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
-#         bounce_btn.click()
+def handle_active_ads(browser, advertisments):
+    for ad in advertisments:
+        browser.get(ad.ad_url)
+        bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
+        bounce_btn.click()
 
 
 def create_ad_list(browser):
@@ -95,33 +91,12 @@ def create_ad_list(browser):
 
 def main():
     browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
-    advertisement = create_ad_list(browser)
-    for ad in advertisement:
+    advertisements = create_ad_list(browser)
+    for ad in advertisements:
         print("-"*80)
-        print(ad.print_me())
+        ad.print_me()
     print("-"*80)
 
 
 if __name__ == "__main__":
     main()
-
-
-#     active_ads = browser.find_elements_by_xpath(("//tr[@class='item item-color-1']"))
-#     for ad in active_ads:
-#         ad.click()
-#         print(ad)
-#     browser.back()
-
-# loginWin = Tk()
-# lblLogin = Label(loginWin, text="Yad2 Login")
-# lblUsr = Label(loginWin, text="User Name: ")
-# lblPass = Label(loginWin, text="Password: ")
-# entry_usr = Entry(loginWin)
-# entry_pass = Entry(loginWin)
-#
-# lblLogin.grid(row=0, columnspan=2)
-# lblUsr.grid(row=1, sticky=E)
-# lblPass.grid(row=2, sticky=E)
-# entry_usr.grid(row=1, column=1)
-# entry_pass.grid(row=2, column=1)
-# loginWin.mainloop
