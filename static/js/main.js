@@ -11,7 +11,8 @@
         type: "POST",
         url: "/main",
         async: false,
-        data: { username: name ,password: pass}
+        data: { username: name ,password: pass},
+        success: function(data){console.log(data)}
     });
 
     return jqXHR.responseText;

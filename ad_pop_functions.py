@@ -130,6 +130,7 @@ def main():
         user_name = request.form['username']
         password = request.form['password']
         browser = login_to_yad2(user_name, password)
+    return "DONE!"
     # else:
     #     browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
     # advertisements = create_ad_list(browser)
