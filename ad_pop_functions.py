@@ -1,10 +1,8 @@
 import os
-
+import re
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, redirect, url_for, request, send_from_directory
-from flask import make_response
-import re
 app = Flask(__name__, template_folder='.', static_url_path='')
 
 
@@ -25,7 +23,12 @@ class Advertisment:
 
 
 def login_to_yad2(username, password):
-    browser = webdriver.Chrome("chromedriver75win")
+    chrome_options = Options()
+    chrome_options.binary_location = GOOGLE_CHROME_BIN
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    browser = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+    # browser = webdriver.Chrome("chromedriver75win")
     browser.get("https://my.yad2.co.il/login.php")
     if not browser.current_url == "https://my.yad2.co.il/login.php":
         return browser
