@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64bf4b81-a992-4a96-954a-98011c369f48" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ad_pop_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/ad_pop_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chromedriver73win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/chromedriver73win.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chromedriver75win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/chromedriver75win.exe" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +40,7 @@
           <entry key="Procfile" value="87" />
           <entry key="html" value="46" />
           <entry key="js" value="115" />
-          <entry key="py" value="277" />
+          <entry key="py" value="296" />
           <entry key="txt" value="68" />
         </counts>
       </usages-collector>
@@ -52,7 +49,7 @@
           <entry key="HTML" value="46" />
           <entry key="JavaScript" value="115" />
           <entry key="PLAIN_TEXT" value="155" />
-          <entry key="Python" value="277" />
+          <entry key="Python" value="296" />
         </counts>
       </usages-collector>
     </session>
@@ -62,11 +59,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ad_pop_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
+            <state relative-caret-position="485">
+              <caret line="136" column="25" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1563911459763" expanded="true" signature="1293:1297" ph="..." />
+                <marker date="1563911924170" expanded="true" signature="1293:1297" ph="..." />
               </folding>
             </state>
           </provider>
@@ -113,6 +110,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>favicon</find>
+      <find>GOOGLE_CHROME_BIN</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,7 +127,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1940" />
@@ -196,7 +194,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
@@ -252,11 +250,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ad_pop_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
+        <state relative-caret-position="485">
+          <caret line="136" column="25" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1563911459763" expanded="true" signature="1293:1297" ph="..." />
+            <marker date="1563911924170" expanded="true" signature="1293:1297" ph="..." />
           </folding>
         </state>
       </provider>
