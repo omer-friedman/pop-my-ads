@@ -5,6 +5,8 @@ from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, redirect, url_for, request, send_from_directory
 app = Flask(__name__, template_folder='.', static_url_path='')
 
+GOOGLE_CHROME_BIN="/app/.apt/usr/bin/google-chrome"
+CHROMEDRIVER_PATH="/app/.chromedriver/bin/chromedriver"
 
 class Advertisment:
     def __init__(self, ad_name, ad_url, ad_next_bounce, ad_status, is_bounce_valid=False):
@@ -23,7 +25,7 @@ class Advertisment:
 
 
 def login_to_yad2(username, password):
-    chrome_options = Options()
+    chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = GOOGLE_CHROME_BIN
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--no-sandbox')
