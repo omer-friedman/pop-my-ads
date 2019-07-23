@@ -23,16 +23,17 @@ class Advertisment:
 
 
 def login_to_yad2(username, password):
-    browser = webdriver.Chrome("chromedriver75win")
-    browser.get("https://my.yad2.co.il/login.php")
-    if not browser.current_url == "https://my.yad2.co.il/login.php":
-        return browser
-    user_elem = browser.find_element_by_id("userName")
-    pass_elem = browser.find_element_by_id("password")
-    user_elem.send_keys(username)
-    pass_elem.send_keys(password)
-    pass_elem.send_keys(Keys.ENTER)
-    return browser
+    return username+"- "+password
+    # browser = webdriver.Chrome("chromedriver75win")
+    # browser.get("https://my.yad2.co.il/login.php")
+    # if not browser.current_url == "https://my.yad2.co.il/login.php":
+    #     return browser
+    # user_elem = browser.find_element_by_id("userName")
+    # pass_elem = browser.find_element_by_id("password")
+    # user_elem.send_keys(username)
+    # pass_elem.send_keys(password)
+    # pass_elem.send_keys(Keys.ENTER)
+    # return browser
 
 
 def get_active_categories_url(browser):
@@ -121,7 +122,7 @@ def main():
         password = request.form['password']
         browser = login_to_yad2(user_name, password)
     else:
-        browser = login_to_yad2("omerf311111@gmail.com", "Bbamba!YAD2")
+        browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
     advertisements = create_ad_list(browser)
     # reorder_expired_ads
     # for ad in advertisements:
