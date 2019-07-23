@@ -112,7 +112,8 @@ app = Flask(__name__, template_folder='.')
 @app.route("/")
 @app.route("/index.html")
 def index():
-    return render_template('index.html')
+    return "Hello world"
+    # return render_template('index.html')
 #
 #
 # @app.route('/main', methods=['GET', 'POST'])
