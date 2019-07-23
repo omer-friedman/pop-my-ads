@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="64bf4b81-a992-4a96-954a-98011c369f48" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/ad_pop_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/ad_pop_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +37,7 @@
         <counts>
           <entry key="Procfile" value="87" />
           <entry key="html" value="1" />
-          <entry key="py" value="47" />
+          <entry key="py" value="52" />
           <entry key="txt" value="68" />
         </counts>
       </usages-collector>
@@ -47,7 +45,7 @@
         <counts>
           <entry key="HTML" value="1" />
           <entry key="PLAIN_TEXT" value="155" />
-          <entry key="Python" value="47" />
+          <entry key="Python" value="52" />
         </counts>
       </usages-collector>
     </session>
@@ -57,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ad_pop_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="9" lean-forward="true" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+            <state relative-caret-position="370">
+              <caret line="112" column="12" lean-forward="true" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="12" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -223,8 +221,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ad_pop_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="9" lean-forward="true" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+        <state relative-caret-position="370">
+          <caret line="112" column="12" lean-forward="true" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="12" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>

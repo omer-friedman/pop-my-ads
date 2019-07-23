@@ -3,8 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, redirect, url_for,request
 from flask import make_response
 import re
-app = Flask(__name__, template_folder='.', static_url_path='')
-# app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon.ico'))
+app = Flask(__name__, template_folder='.')
 
 
 
@@ -109,11 +108,10 @@ app = Flask(__name__, template_folder='.', static_url_path='')
 #         get_ads_from_category_url(browser, category_url, ads)
 #     return ads
 #
-# @app.route("/index.html")
 @app.route("/")
+@app.route("/index.html")
 def index():
-    return "Hello world"
-    # return render_template('index.html')
+    return render_template('index.html')
 #
 #
 #
