@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, redirect, url_for,request
 from flask import make_response
 import re
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__, template_folder='.', static_url_path='')
 
 
 
