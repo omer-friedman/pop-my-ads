@@ -107,11 +107,11 @@ def create_ad_list(browser):
         get_ads_from_category_url(browser, category_url, ads)
     return ads
 
+
 @app.route("/")
 @app.route("/index.html")
 def index():
     return render_template('index.html')
-
 
 
 @app.route('/main', methods=['GET', 'POST'])
@@ -120,14 +120,14 @@ def main():
         user_name = request.form['username']
         password = request.form['password']
         browser = login_to_yad2(user_name, password)
-    else :
-        browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
+    else:
+        browser = login_to_yad2("omerf311111@gmail.com", "Bbamba!YAD2")
     advertisements = create_ad_list(browser)
     # reorder_expired_ads
-    for ad in advertisements:
-        print("-"*80)
-        ad.print_me()
-    print("-"*80)
+    # for ad in advertisements:
+    #     print("-"*80)
+    #     ad.print_me()
+    # print("-"*80)
 
 
 # if __name__ == "__main__":
