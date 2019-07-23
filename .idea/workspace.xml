@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64bf4b81-a992-4a96-954a-98011c369f48" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ad_pop_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/ad_pop_functions.py" afterDir="false" />
-    </list>
+    <list default="true" id="64bf4b81-a992-4a96-954a-98011c369f48" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +35,7 @@
         <counts>
           <entry key="Procfile" value="87" />
           <entry key="html" value="1" />
-          <entry key="py" value="57" />
+          <entry key="py" value="58" />
           <entry key="txt" value="68" />
         </counts>
       </usages-collector>
@@ -45,7 +43,7 @@
         <counts>
           <entry key="HTML" value="1" />
           <entry key="PLAIN_TEXT" value="155" />
-          <entry key="Python" value="57" />
+          <entry key="Python" value="58" />
         </counts>
       </usages-collector>
     </session>
@@ -56,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/ad_pop_functions.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="100">
-              <caret line="5" column="60" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
+              <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -222,7 +220,7 @@
     <entry file="file://$PROJECT_DIR$/ad_pop_functions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="5" column="60" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
+          <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
