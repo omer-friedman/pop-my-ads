@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from flask import Flask, render_template, redirect, url_for,request
+from flask import Flask, render_template, redirect, url_for, request, send_from_directory
 from flask import make_response
 import re
 app = Flask(__name__, template_folder='.', static_url_path='')
@@ -113,6 +113,9 @@ def create_ad_list(browser):
 def index():
     return render_template('index.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
