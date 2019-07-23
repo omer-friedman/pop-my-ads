@@ -134,7 +134,8 @@ def main():
     else:
         browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
     advertisements = create_ad_list(browser)
-    return advertisements
+    dictOfWords = dict.fromkeys(advertisements, 1)
+    return dictOfWords
     # reorder_expired_ads
     # for ad in advertisements:
     #     print("-"*80)
