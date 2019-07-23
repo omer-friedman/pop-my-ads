@@ -108,12 +108,12 @@ app = Flask(__name__, template_folder='.')
 #         get_ads_from_category_url(browser, category_url, ads)
 #     return ads
 #
-#
+# @app.route("/index.html")
 @app.route("/")
-@app.route("/index.html")
 def index():
     return "Hello world"
     # return render_template('index.html')
+#
 #
 #
 # @app.route('/main', methods=['GET', 'POST'])
