@@ -1,3 +1,5 @@
+import os
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, redirect, url_for, request, send_from_directory
@@ -122,8 +124,7 @@ def main():
     if request.method == 'POST':
         user_name = request.form['username']
         password = request.form['password']
-        return user_name + "- " + password
-        # browser = login_to_yad2(user_name, password)
+        browser = login_to_yad2(user_name, password)
     # else:
     #     browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
     # advertisements = create_ad_list(browser)
