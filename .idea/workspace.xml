@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64bf4b81-a992-4a96-954a-98011c369f48" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ad_pop_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/ad_pop_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chromedriver73win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/chromedriver73win.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chromedriver75win.exe" beforeDir="false" afterPath="$PROJECT_DIR$/chromedriver75win.exe" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,17 +42,17 @@
         <counts>
           <entry key="Procfile" value="87" />
           <entry key="html" value="46" />
-          <entry key="js" value="52" />
-          <entry key="py" value="219" />
+          <entry key="js" value="115" />
+          <entry key="py" value="277" />
           <entry key="txt" value="68" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="46" />
-          <entry key="JavaScript" value="52" />
+          <entry key="JavaScript" value="115" />
           <entry key="PLAIN_TEXT" value="155" />
-          <entry key="Python" value="219" />
+          <entry key="Python" value="277" />
         </counts>
       </usages-collector>
     </session>
@@ -59,11 +62,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ad_pop_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="132" column="18" selection-start-line="132" selection-start-column="18" selection-end-line="132" selection-end-column="18" />
+            <state relative-caret-position="157">
+              <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1563909615697" expanded="true" signature="1308:1313" ph="..." />
+                <marker date="1563911459763" expanded="true" signature="1293:1297" ph="..." />
               </folding>
             </state>
           </provider>
@@ -73,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/static/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="280">
-              <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+              <caret line="14" column="50" lean-forward="true" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -120,8 +123,8 @@
       <list>
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/static/js/main.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/static/js/main.js" />
         <option value="$PROJECT_DIR$/ad_pop_functions.py" />
       </list>
     </option>
@@ -243,17 +246,17 @@
     <entry file="file://$PROJECT_DIR$/static/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
-          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <caret line="14" column="50" lean-forward="true" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ad_pop_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="132" column="18" selection-start-line="132" selection-start-column="18" selection-end-line="132" selection-end-column="18" />
+        <state relative-caret-position="157">
+          <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1563909615697" expanded="true" signature="1308:1313" ph="..." />
+            <marker date="1563911459763" expanded="true" signature="1293:1297" ph="..." />
           </folding>
         </state>
       </provider>
