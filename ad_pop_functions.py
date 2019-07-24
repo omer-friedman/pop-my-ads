@@ -141,15 +141,16 @@ def main():
         user_name = request.form['username']
         password = request.form['password']
     browser = login_to_yad2(user_name, password)
+    stringtoreturn = str(browser.page_source)
     advertisements = create_ad_dict(browser)
     browser.close()
-    # reorder_expired_ads
-    # for i, ad in advertisements.items():
-    #     print("-"*80)
-    #     ad.print_me()
-    # print("-"*80)
-    # return "OK"
-    return json.dumps(advertisements)
+    return stringtoreturn
+    # # reorder_expired_ads
+    # # for i, ad in advertisements.items():
+    # #     print("-"*80)
+    # #     ad.print_me()
+    # # print("-"*80)
+    # return json.dumps(advertisements)
 
 
 if __name__ == "__main__":
