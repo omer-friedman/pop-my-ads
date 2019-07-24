@@ -99,7 +99,7 @@ def get_ads_from_category_url(browser, category_url, ads):
             is_bouncable = False
         ad_name = get_ad_name(browser)
         ad = Advertisment(ad_name, ad_url, next_bounce_time, ad_status, is_bouncable)
-        ads[str(len(ads))] = ad
+        ads[str(len(ads))] = ad.__dict__
 
 
 def handle_active_ads(browser, advertisments):
@@ -138,12 +138,12 @@ def main():
     advertisements = create_ad_dict(browser)
     browser.close()
     # reorder_expired_ads
-    for i, ad in advertisements.items():
-        print("-"*80)
-        ad.print_me()
-    print("-"*80)
-    return "OK"
-    # return json.dumps(advertisements)
+    # for i, ad in advertisements.items():
+    #     print("-"*80)
+    #     ad.print_me()
+    # print("-"*80)
+    # return "OK"
+    return json.dumps(advertisements)
 
 
 if __name__ == "__main__":
