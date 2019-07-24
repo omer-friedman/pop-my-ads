@@ -1,5 +1,6 @@
 import os
 import re
+import json
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, redirect, url_for, request, send_from_directory
@@ -23,13 +24,15 @@ class Advertisment:
 
 
 def login_to_yad2(username, password):
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--headless')
-    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    # browser = webdriver.Chrome("chromedriver75win")
+    try:
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--headless')
+        browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    except:
+        browser = webdriver.Chrome("chromedriver75win")
     browser.get("https://my.yad2.co.il/login.php")
     if not browser.current_url == "https://my.yad2.co.il/login.php":
         return browser
@@ -96,7 +99,7 @@ def get_ads_from_category_url(browser, category_url, ads):
             is_bouncable = False
         ad_name = get_ad_name(browser)
         ad = Advertisment(ad_name, ad_url, next_bounce_time, ad_status, is_bouncable)
-        ads.append(ad)
+        ads[str(len(ads))] = ad
 
 
 def handle_active_ads(browser, advertisments):
@@ -106,9 +109,9 @@ def handle_active_ads(browser, advertisments):
         bounce_btn.click()
 
 
-def create_ad_list(browser):
+def create_ad_dict(browser):
     active_categories_url = get_active_categories_url(browser)
-    ads = []
+    ads = {}
     for category_url in active_categories_url:
         get_ads_from_category_url(browser, category_url, ads)
     return ads
@@ -127,21 +130,21 @@ def favicon():
 
 @app.route('/main', methods=['GET', 'POST'])
 def main():
+    user_name = password = ""
     if request.method == 'POST':
         user_name = request.form['username']
         password = request.form['password']
-        browser = login_to_yad2(user_name, password)
-    else:
-        browser = login_to_yad2("omerf31@gmail.com", "Bbamba!YAD2")
-    advertisements = create_ad_list(browser)
-    dictOfWords = dict.fromkeys(advertisements, 1)
-    return dictOfWords
+    browser = login_to_yad2(user_name, password)
+    advertisements = create_ad_dict(browser)
+    browser.close()
     # reorder_expired_ads
-    # for ad in advertisements:
-    #     print("-"*80)
-    #     ad.print_me()
-    # print("-"*80)
+    for i, ad in advertisements.items():
+        print("-"*80)
+        ad.print_me()
+    print("-"*80)
+    return "OK"
+    # return json.dumps(advertisements)
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
