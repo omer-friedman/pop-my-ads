@@ -23,12 +23,16 @@ function display_ads_to_client(ads){
             ad_next_bounce = "NOW";
         else if(!ad_next_bounce)
             ad_next_bounce = "";
-        $('#ads_table tr:last').after('<tr id="'+ad_url+'"><td>'+ad_name+'</td><td>'+ad_status+'</td><td>'+ad_next_bounce+'</td><td><input id="bouncebox'+i+'" type="checkbox" checked/></td></tr>');
+        $('#ads_table tr:last').after('<tr id="'+ad_url+'"><td>'+ad_name+'</td><td>'+ad_status+'</td><td>'+ad_next_bounce+'</td><td><input id="bouncebox'+i+'" type="checkbox"/></td></tr>');
+        if(ad_status != "מודעה פעילה" && ad_status != "פג תוקף")
+            document.getElementById("bouncebox"+i).disabled = true;
     });
     $("#ads_div").show();
 }
 
 function getDiffTime(next_bounce){
+    if(!next_bounce.includes(':'))
+        return next_bounce;
     var return_minutes = return_hours = ""
     var next_hour = Number(next_bounce.split(':')[0]);
     var next_minutes = Number(next_bounce.split(':')[1]);
@@ -36,7 +40,7 @@ function getDiffTime(next_bounce){
     var now_hour = Number(today.getHours());
     var now_minutes = Number(today.getMinutes());
     actual_minutes = next_minutes - now_minutes;
-    actual_hours = next_hour - now_hour
+    actual_hours = (next_hour - now_hour - 1)
     if(actual_minutes < 0)
         actual_minutes = String(60 + actual_minutes)
     if(actual_hours < 0)
@@ -45,15 +49,29 @@ function getDiffTime(next_bounce){
 }
 
 function start_popping_ads(){
-    var arr = {};
+    var urls_properties_dict = {};
     $('#ads_table tr').each(function(){
         if(this.id != "tbl_first_tr"){
-            arr[this.id] = [this.children[1].innerHTML, this.children[2].innerHTML, this.children[3].children[0].checked];
-            var bounce_time = this.children[2].innerHTML;
-            this.children[2].innerHTML = '<p class="countdown-timer">'+getDiffTime(bounce_time)+"</p>";
+            var status = this.children[1].innerHTML;
+            var next_bounce = this.children[2].innerHTML;
+            var pop_ad_checked = this.children[3].children[0].checked;
+            if(pop_ad_checked){
+                if(!next_bounce.includes(':'))
+                    urls_properties_dict[this.id] = status;
+                this.children[2].innerHTML = '<p class="countdown-timer">'+getDiffTime(next_bounce)+'</p>';
+            }
         }
     });
     start_countdown();
-    console.log(arr);
-
+    var poped_ads_dict = $.ajax({
+        type: "POST",
+        url: "/pop_ads",
+        async: false,
+        data:{advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass}
+    });
+    pop_ads_json = JSON.parse(poped_ads_dict.responseText();
+    jQuery.each(pop_ads_json, function(url, prop){
+        var status = prop[0]
+        var pop_succeeded = prop[1]
+    });
 }

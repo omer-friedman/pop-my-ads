@@ -75,8 +75,18 @@ def rerun_expired_ad(browser, ad_url):
     expired_msg_xpath = "//div[@class='desc orange']/div[@class='expired_msg']/a[@href]"
     expired_url = browser.find_element_by_xpath(expired_msg_xpath).get_attribute('href')
     if not expired_url:
-        pass
+        return False
     browser.get(expired_url)
+    return True
+
+
+def pop_active_ad(browser, ad_url):
+    browser.get(ad_url)
+    bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
+    if not bounce_btn:
+        return False
+    bounce_btn.click()
+    return True
 
 
 def get_ads_from_category_url(browser, category_url, ads):
@@ -102,12 +112,22 @@ def get_ads_from_category_url(browser, category_url, ads):
         ads[str(len(ads))] = ad.__dict__
 
 
-def handle_active_ads(browser, advertisments):
-    for i, ad in advertisments.items():
-        ad_url = re.search('', advertisments)
-        browser.get(ad.ad_url)
-        bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
-        bounce_btn.click()
+@app.route('/pop_ads', methods=['POST'])
+def pop_ads():
+    advertisements = request.form['advertisements']
+    username = request.form['username']
+    password = request.form['password']
+    advertisements = json.loads(advertisements)
+    if not advertisements:
+        return "{}"
+    browser = login_to_yad2(username, password)
+    for ad_url, status in advertisements.items():
+        if status == "מודעה פעילה":
+            succeeded = pop_active_ad(browser, ad_url)
+        else:
+            succeeded = rerun_expired_ad(browser, ad_url)
+        advertisements[ad_url] = [status, succeeded]
+    return advertisements
 
 
 def create_ad_dict(browser):
@@ -129,20 +149,14 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-@app.route('/main', methods=['GET', 'POST'])
+@app.route('/main', methods=['POST'])
 def main():
-    user_name = password = ""
-    if request.method == 'POST':
-        user_name = request.form['username']
-        password = request.form['password']
+    user_name = request.form['username']
+    password = request.form['password']
     browser = login_to_yad2(user_name, password)
     advertisements = create_ad_dict(browser)
     browser.close()
     # reorder_expired_ads
-    # for i, ad in advertisements.items():
-    #     print("-"*80)
-    #     ad.print_me()
-    # print("-"*80)
     return advertisements
 
 

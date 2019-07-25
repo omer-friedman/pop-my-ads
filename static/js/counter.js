@@ -69,7 +69,7 @@ function start_countdown(){
                 'updateRate': 100,                // Update rate, in milliseconds
                 'onTimeUp': function() {          // onTimeUp callback
                     this.stop();
-                    $(this.element).html('NOW');
+                    $(this.element).html('ASD');
                 },
                 'onTimeUpdate': function() {      // onTimeUpdate callback
                     var t = this.elapsed,
