@@ -7,11 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/loading.css') }}">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body>
+    
+    <div class="lds-hourglass" style="display: none;" ></div>
     <div id="logindiv" class="login-page">
         <div class="form">
             <form class="login-form">
@@ -26,7 +29,7 @@
             <table id="ads_table" cellspacing="0">
                 <tr id="tbl_first_tr"><td>שם מודעה</td><td>סטטוס</td><td>הקפצה הבאה</td><td>הקפץ</td></tr>
             </table>
-            <button type="button" onclick="start_popping_ads()">POP MY ADS!</button>
+            <button id="toggle" type="button" onclick="start_popping_ads()">POP MY ADS!</button>
         </div>
     </div>
 

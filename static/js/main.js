@@ -1,17 +1,22 @@
+
+
 function get_ads_from_account_and_display_to_client(){
+    
     window.user_name = document.getElementById("username").value;
     window.user_pass = document.getElementById("password").value;
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "/main",
-        async: false,
-        data:{ username: window.user_name, password: window.user_pass}
-    });
-    display_ads_to_client(jqXHR.responseText);
+    $(".lds-hourglass").show(function(){
+        var jqXHR = $.ajax({
+            type: "POST",
+            url: "/main",
+            async: false,
+            data:{ username: window.user_name, password: window.user_pass}
+        });
+        display_ads_to_client(jqXHR.responseText);
+});
+    $("#logindiv").hide();
 }
 
 function display_ads_to_client(ads){
-    $("#logindiv").hide();
     ads = JSON.parse(ads);
     jQuery.each(ads, function(i,ad){
         var ad_name = ad.ad_name;
@@ -27,6 +32,7 @@ function display_ads_to_client(ads){
         if(ad_status != "מודעה פעילה" && ad_status != "פג תוקף")
             document.getElementById("bouncebox"+i).disabled = true;
     });
+    $(".lds-hourglass").hide();
     $("#ads_div").show();
 }
 
@@ -74,4 +80,15 @@ function start_popping_ads(){
         var status = prop[0]
         var pop_succeeded = prop[1]
     });
+}
+
+function handle_pop_or_stop_button(){
+    var button_content = document.getElementById("btn_popstop");
+    if (button_content.innerHTML == "POP MY ADS!"){
+        button_content.innerHTML = "STOP";
+        start_popping_ads();
+    }
+    else {
+        button_content.innerHTML = "POP MY ADS!";
+    }
 }
