@@ -1,17 +1,25 @@
+
+
 function get_ads_from_account_and_display_to_client(){
+    
+
+
     window.user_name = document.getElementById("username").value;
     window.user_pass = document.getElementById("password").value;
-    var jqXHR = $.ajax({
-        type: "POST",
-        url: "/main",
-        async: false,
-        data:{ username: window.user_name, password: window.user_pass}
+    $(".lds-hourglass").show(function(){
+        var jqXHR = $.ajax({
+            type: "POST",
+            url: "/main",
+            async: false,
+            data:{ username: window.user_name, password: window.user_pass}
+        });
+        display_ads_to_client(jqXHR.responseText);
+    
     });
-    display_ads_to_client(jqXHR.responseText);
+    $("#logindiv").hide();
 }
 
 function display_ads_to_client(ads){
-    $("#logindiv").hide();
     ads = JSON.parse(ads);
     jQuery.each(ads, function(i,ad){
         var ad_name = ad.ad_name;
@@ -25,6 +33,7 @@ function display_ads_to_client(ads){
             ad_next_bounce = "";
         $('#ads_table tr:last').after('<tr id="'+ad_url+'"><td>'+ad_name+'</td><td>'+ad_status+'</td><td>'+ad_next_bounce+'</td><td><input id="bouncebox'+i+'" type="checkbox" checked/></td></tr>');
     });
+    $(".lds-hourglass").hide();
     $("#ads_div").show();
 }
 

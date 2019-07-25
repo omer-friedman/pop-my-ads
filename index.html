@@ -7,16 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/loading.css') }}">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body>
+    
+    <div class="lds-hourglass" style="display: none;" ></div>
     <div id="logindiv" class="login-page">
         <div class="form">
             <form class="login-form">
-                <input type="text" id="username" placeholder="username" value="omerf31@gmail.com" />
-                <input type="password" id="password" placeholder="password" value="Bbamba!YAD2" />
+                <input type="text" id="username" placeholder="username" value="shai2323@gmail.com" />
+                <input type="password" id="password" placeholder="password" value="ahhgeuc2" />
                 <button type="button" onclick="get_ads_from_account_and_display_to_client()">GO :)</button>
             </form>
         </div>
