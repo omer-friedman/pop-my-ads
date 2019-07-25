@@ -1,10 +1,14 @@
+function pop_ads(){
+
+}
+
 function getUserNameAndPassword(){
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
-    run_ads_poping(username,password);
+    get_ads_poping(username,password);
 }
 
-function run_ads_poping(name,pass){
+function get_ads_poping(name,pass){
     var jqXHR = $.ajax({
         type: "POST",
         url: "/main",
@@ -34,6 +38,7 @@ function display_ads_to_client(ads){
             document.getElementById("bouncebox"+i).checked = true;
         }
     });
+
     var arr = {};
     $('#ads_table tr').each(function(){
         if(this.id != "tbl_first_tr")
