@@ -2,8 +2,6 @@
 
 function get_ads_from_account_and_display_to_client(){
     
-
-
     window.user_name = document.getElementById("username").value;
     window.user_pass = document.getElementById("password").value;
     $(".lds-hourglass").show(function(){
@@ -14,8 +12,7 @@ function get_ads_from_account_and_display_to_client(){
             data:{ username: window.user_name, password: window.user_pass}
         });
         display_ads_to_client(jqXHR.responseText);
-    
-    });
+});
     $("#logindiv").hide();
 }
 
@@ -54,15 +51,23 @@ function getDiffTime(next_bounce){
 }
 
 function start_popping_ads(){
-    var arr = {};
-    $('#ads_table tr').each(function(){
-        if(this.id != "tbl_first_tr"){
-            arr[this.id] = [this.children[1].innerHTML, this.children[2].innerHTML, this.children[3].children[0].checked];
-            var bounce_time = this.children[2].innerHTML;
-            this.children[2].innerHTML = '<p class="countdown-timer">'+getDiffTime(bounce_time)+"</p>";
-        }
-    });
-    start_countdown();
-    console.log(arr);
+    var change = document.getElementById("toggle");
+    if (change.innerHTML == "POP MY ADS!")
+    {
+        var arr = {};
+        $('#ads_table tr').each(function(){
+            if(this.id != "tbl_first_tr"){
+                arr[this.id] = [this.children[1].innerHTML, this.children[2].innerHTML, this.children[3].children[0].checked];
+                var bounce_time = this.children[2].innerHTML;
+                this.children[2].innerHTML = '<p class="countdown-timer">'+getDiffTime(bounce_time)+"</p>";
+            }
+        });
+        start_countdown();
+        console.log(arr);
+        change.innerHTML = "STOP";
+    }
+    else {
+        change.innerHTML = "POP MY ADS!";
+    }    
 
 }
