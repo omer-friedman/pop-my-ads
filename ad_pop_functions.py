@@ -1,5 +1,6 @@
 import os
 import re
+import json
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, request, send_from_directory
@@ -102,7 +103,8 @@ def get_ads_from_category_url(browser, category_url, ads):
 
 
 def handle_active_ads(browser, advertisments):
-    for ad in advertisments:
+    for i, ad in advertisments.items():
+        ad_url = re.search('', advertisments)
         browser.get(ad.ad_url)
         bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
         bounce_btn.click()
@@ -134,10 +136,8 @@ def main():
         user_name = request.form['username']
         password = request.form['password']
     browser = login_to_yad2(user_name, password)
-    # stringtoreturn = str(browser.page_source)
     advertisements = create_ad_dict(browser)
     browser.close()
-    # return stringtoreturn
     # reorder_expired_ads
     # for i, ad in advertisements.items():
     #     print("-"*80)
