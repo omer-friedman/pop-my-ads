@@ -1,19 +1,11 @@
-function pop_ads(){
-
-}
-
-function getUserNameAndPassword(){
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    get_ads_poping(username,password);
-}
-
-function get_ads_poping(name,pass){
+function get_ads_from_account_and_display_to_client(){
+    window.user_name = document.getElementById("username").value;
+    window.user_pass = document.getElementById("password").value;
     var jqXHR = $.ajax({
         type: "POST",
         url: "/main",
         async: false,
-        data:{ username: name, password: pass}
+        data:{ username: window.user_name, password: window.user_pass}
     });
     display_ads_to_client(jqXHR.responseText);
 }
@@ -31,20 +23,8 @@ function display_ads_to_client(ads){
             ad_next_bounce = "NOW";
         else if(!ad_next_bounce)
             ad_next_bounce = "";
-        else
-            ad_next_bounce = getDiffTime(ad_next_bounce);
-        $('#ads_table tr:last').after('<tr id="'+ad_url+'"><td>'+ad_name+'</td><td>'+ad_status+'</td><td>'+ad_next_bounce+'</td><td><input id="bouncebox'+i+'" type="checkbox"/></td></tr>');
-        if(is_bounce_valid){
-            document.getElementById("bouncebox"+i).checked = true;
-        }
+        $('#ads_table tr:last').after('<tr id="'+ad_url+'"><td>'+ad_name+'</td><td>'+ad_status+'</td><td>'+ad_next_bounce+'</td><td><input id="bouncebox'+i+'" type="checkbox" checked/></td></tr>');
     });
-
-    var arr = {};
-    $('#ads_table tr').each(function(){
-        if(this.id != "tbl_first_tr")
-        arr[this.id] = this.children[3].children[0].checked;
-    });
-    console.log(arr);
     $("#ads_div").show();
 }
 
@@ -61,5 +41,19 @@ function getDiffTime(next_bounce){
         actual_minutes = String(60 + actual_minutes)
     if(actual_hours < 0)
         actual_hours = String(24 + actual_hours)
-    return actual_hours+":"+actual_minutes
+    return actual_hours+":"+actual_minutes+":00";
+}
+
+function start_popping_ads(){
+    var arr = {};
+    $('#ads_table tr').each(function(){
+        if(this.id != "tbl_first_tr"){
+            arr[this.id] = [this.children[1].innerHTML, this.children[2].innerHTML, this.children[3].children[0].checked];
+            var bounce_time = this.children[2].innerHTML;
+            this.children[2].innerHTML = '<p class="countdown-timer">'+getDiffTime(bounce_time)+"</p>";
+        }
+    });
+    start_countdown();
+    console.log(arr);
+
 }

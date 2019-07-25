@@ -11,14 +11,14 @@ class Advertisment:
     def __init__(self, ad_name, ad_url, ad_next_bounce, ad_status, is_bounce_valid=False):
         self.ad_name = ad_name
         self.ad_url = ad_url
-        self.ad_next_bounc = ad_next_bounce
+        self.ad_next_bounce = ad_next_bounce
         self.ad_status = ad_status
         self.is_bounce_valid = is_bounce_valid
 
     def print_me(self):
         print("ad name:       "+self.ad_name.__str__())
         print("ad url:       "+self.ad_url.__str__())
-        print("next bounce:  "+self.ad_next_bounc.__str__())
+        print("next bounce:  "+self.ad_next_bounce.__str__())
         print("is_bouncable: "+self.is_bounce_valid.__str__())
         print("ad status: "+self.ad_status.__str__())
 

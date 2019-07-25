@@ -53,30 +53,34 @@ Stopwatch.prototype.stop = function() {
 };
 
 
-$(document).ready(function() {
+function start_countdown(){
     $('.countdown-timer').each(function() {
-        var count_id = $(this).attr('id');
-        var countdown_time = document.getElementById(count_id).innerHTML;
-        var elapsed_milliseconds = Number(countdown_time.split(':')[0]) * 60 * 60 * 1000 +Number(countdown_time.split(':')[1]) * 60 * 1000 + Number(countdown_time.split(':')[2]) * 60 * 1000;
-        var stopwatch = new Stopwatch({
-            'element': $(this),               // DOM element
-            'paused': false,                  // Status
-            'elapsed': elapsed_milliseconds,  // Current time in milliseconds
-            'countingUp': false,              // Counting up or down
-            'timeLimit': 0,                   // Time limit in milliseconds
-            'updateRate': 100,                // Update rate, in milliseconds
-            'onTimeUp': function() {          // onTimeUp callback
-                this.stop();
-                $(this.element).html('NOW');
-            },
-            'onTimeUpdate': function() {      // onTimeUpdate callback
-                var t = this.elapsed,
-                    h = ('0' + Math.floor(t / 3600000)).slice(-2),
-                    m = ('0' + Math.floor(t % 3600000 / 60000)).slice(-2),
-                    s = ('0' + Math.floor(t % 60000 / 1000)).slice(-2);
-                var formattedTime = h + ':' + m + ':' + s;
-                $(this.element).html(formattedTime);
-            }
-        });
+//        var count_id = $(this).attr('id');
+//        var countdown_time = document.getElementById(count_id).innerHTML;
+        var countdown_time = this.innerHTML;
+        if(countdown_time.includes(':')){
+            var elapsed_milliseconds = Number(countdown_time.split(':')[0]) * 60 * 60 * 1000 +Number(countdown_time.split(':')[1]) * 60 * 1000 + Number(countdown_time.split(':')[2]) * 60 * 1000;
+            var stopwatch = new Stopwatch({
+                'element': $(this),               // DOM element
+                'paused': false,                  // Status
+                'elapsed': elapsed_milliseconds,  // Current time in milliseconds
+                'countingUp': false,              // Counting up or down
+                'timeLimit': 0,                   // Time limit in milliseconds
+                'updateRate': 100,                // Update rate, in milliseconds
+                'onTimeUp': function() {          // onTimeUp callback
+                    this.stop();
+                    $(this.element).html('NOW');
+                },
+                'onTimeUpdate': function() {      // onTimeUpdate callback
+                    var t = this.elapsed,
+                        h = ('0' + Math.floor(t / 3600000)).slice(-2),
+                        m = ('0' + Math.floor(t % 3600000 / 60000)).slice(-2),
+                        s = ('0' + Math.floor(t % 60000 / 1000)).slice(-2);
+                    var formattedTime = h + ':' + m + ':' + s;
+                    $(this.element).html(formattedTime);
+                }
+            });
+        }
+
     });
-});
+}
