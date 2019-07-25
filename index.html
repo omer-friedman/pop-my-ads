@@ -11,14 +11,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 <body>
-
-    <div class="login-page">
+    <div id="logindiv" class="login-page">
         <div class="form">
             <form class="login-form">
               <input type="text"     id="username"  placeholder="username" value="omerf31@gmail.com"/>
               <input type="password" id="password"  placeholder="password" value="Bbamba!YAD2"/>
-              <button onclick="getUserNameAndPassword()">pop my ads :)</button>
+              <button type="button" onclick="getUserNameAndPassword()">GO :)</button>
             </form>
+        </div>
+    </div>
+    <div>
+        <div id="ads_div" dir="rtl" style="display: none;">
+            <table id="ads_table" cellspacing="0">
+                <tr><td>שם מודעה</td><td>סטטוס</td><td>הקפצה הבאה</td><td>הקפץ</td></tr>
+            </table>
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

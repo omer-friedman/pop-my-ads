@@ -26,6 +26,7 @@
   box-sizing: border-box;
   font-size: 14px;
 }
+
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
@@ -41,10 +42,67 @@
   cursor: pointer;
 }
 
-
 body {
   background: linear-gradient(to left, #ff7700, #ff7700);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ads_div{
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:50em;
+    height:18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -27em; /*set to a negative number 1/2 of your width*/
+    background: transform;
+    text-align: right;
+    overflow:auto;
+}
+
+#ads_table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+#ads_table td{
+    padding: 8px;
+}
+
+#ads_table tr:first-child {background-color: #989c99;}
+#ads_table tr:first-child:hover {background-color: #989c99;}
+
+#ads_div tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+}
+
+
+#ads_table tr:hover {background-color: #ddd;}
+
+#ads_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.awesome_font{
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
