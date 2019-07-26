@@ -1,6 +1,7 @@
 import os
 import re
 import json
+import smtplib , ssl
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, request, send_from_directory
@@ -111,6 +112,32 @@ def get_ads_from_category_url(browser, category_url, ads):
         ad = Advertisment(ad_name, ad_url, next_bounce_time, ad_status, is_bouncable)
         ads[str(len(ads))] = ad.__dict__
 
+def send_email(ads,reciver_email):
+    smtp_server = "smtp.gmail.com"
+    port = 587  # For starttls
+    sender_email = "popmyads2@gmail.com"
+    password = "Bbamba!YAD2"
+    # Create a secure SSL context
+    context = ssl.create_default_context()
+    subject = "אל תדאג נשמה של ברבור הקפצנו לך!"
+    ad = ""
+    for url, add_prop in ads:
+        add += "מודעתך \"" + add_prop[3] +" הוקפצה \"" + "כתובת : " + url + "\n"
+    try:
+        server = smtplib.SMTP(smtp_server,port)
+        server.ehlo() # Can be omitted
+        server.starttls(context=context) # Secure the connection
+        server.ehlo() # Can be omitted
+        server.login(sender_email, password)
+        msg = "Subject: {}\n\n{}".format(subject,ad)
+        server.sendmail(sender_email,reciver_email,msg)
+    except Exception as e:
+        # Print any error messages to stdout
+        print(e)
+        return "False"
+    finally:
+        server.quit() 
+        return "True"
 
 @app.route('/pop_ads', methods=['POST'])
 def pop_ads():
@@ -127,7 +154,10 @@ def pop_ads():
         else:
             browser, pop_succeeded = rerun_expired_ad(browser, ad_url)
         next_bounce = get_next_bounce_time(browser)
-        advertisements[ad_url] = [status, next_bounce, pop_succeeded]
+        ad_name = get_ad_name(browser)
+        advertisements[ad_url] = [status, next_bounce, pop_succeeded,ad_name]
+    send_email(advertisements,username) 
+    browser.close()
     return advertisements
 
 
