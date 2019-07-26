@@ -1,7 +1,6 @@
 
 
 function get_ads_from_account_and_display_to_client(){
-    
     window.user_name = document.getElementById("username").value;
     window.user_pass = document.getElementById("password").value;
     $(".lds-hourglass").show(function(){
@@ -64,22 +63,41 @@ function start_popping_ads(){
             if(pop_ad_checked){
                 if(!next_bounce.includes(':'))
                     urls_properties_dict[this.id] = status;
-                this.children[2].innerHTML = '<p class="countdown-timer">'+getDiffTime(next_bounce)+'</p>';
+                update_td_table(this.id, "next_bounce", next_bounce);
             }
         }
     });
-    start_countdown();
-    var poped_ads_dict = $.ajax({
+    $('.countdown-timer').each(function(){console.log(this)});
+    var pop_ads_str = $.ajax({
         type: "POST",
         url: "/pop_ads",
         async: false,
         data:{advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass}
     });
-    pop_ads_json = JSON.parse(poped_ads_dict.responseText();
-    jQuery.each(pop_ads_json, function(url, prop){
+    pop_ads_json = JSON.parse(pop_ads_str.responseText);
+    update_table(pop_ads_json);
+}
+
+function update_table(pop_ads_json){
+        jQuery.each(pop_ads_json, function(url, prop){
         var status = prop[0]
-        var pop_succeeded = prop[1]
+        var next_bounce = prop[1]
+        var pop_succeeded = prop[2]
+        if(status=="פג תוקף" && pop_succeeded)
+            update_td_table("status", "מודעה פעילה");
+        if(pop_succeeded)
+            update_td_table("next_bounce", next_bounce);
     });
+}
+
+function update_td_table(tr_id, td_name, value){
+    var tr_elem = document.getElementById(tr_id)
+    if(td_name == "status")
+        tr_elem.children[1].innerHTML = value
+    else if(td_name == "next_bounce" && value.includes(':')){
+        tr_elem.children[2].innerHTML = '<p class="countdown-timer">'+getDiffTime(value)+'</p>';
+        start_countdown(tr_elem.children[2].children[0]);
+    }
 }
 
 function handle_pop_or_stop_button(){
