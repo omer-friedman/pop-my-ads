@@ -67,8 +67,7 @@ function start_countdown(countdown_elem){
         'updateRate': 100,                // Update rate, in milliseconds
         'onTimeUp': function() {          // onTimeUp callback
             this.stop();
-            countdown_elem.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
-            console.log(countdown_elem.parentNode.parentNode.id);
+            start_popping_ads()
         },
         'onTimeUpdate': function() {      // onTimeUpdate callback
             var t = this.elapsed,

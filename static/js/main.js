@@ -67,18 +67,18 @@ function display_ads_to_client(ads) {
 function getDiffTime(next_bounce) {
     if (!next_bounce.includes(':'))
         return next_bounce;
-    var return_minutes = return_hours = ""
+    var return_minutes = return_hours = "";
     var next_hour = Number(next_bounce.split(':')[0]);
     var next_minutes = Number(next_bounce.split(':')[1]);
     var today = new Date();
     var now_hour = Number(today.getHours());
     var now_minutes = Number(today.getMinutes());
     actual_minutes = next_minutes - now_minutes;
-    actual_hours = (next_hour - now_hour - 1)
+    actual_hours = (next_hour - now_hour - 1);
     if (actual_minutes < 0)
-        actual_minutes = String(60 + actual_minutes)
+        actual_minutes = String(60 + actual_minutes);
     if (actual_hours < 0)
-        actual_hours = String(24 + actual_hours)
+        actual_hours = String(24 + actual_hours);
     return actual_hours + ":" + actual_minutes + ":00";
 }
 
@@ -90,8 +90,10 @@ function start_popping_ads() {
             var next_bounce = this.children[2].innerHTML;
             var pop_ad_checked = this.children[3].children[0].children[0].checked;
             if (pop_ad_checked) {
-                if (!next_bounce.includes(':'))
+                if (!next_bounce.includes(':')){
                     urls_properties_dict[this.id] = status;
+                    this.children[2].innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
+                }
                 update_td_table(this.id, "next_bounce", next_bounce);
             }
         }
@@ -101,8 +103,8 @@ function start_popping_ads() {
         url: "/pop_ads",
         async: false,
         data: { advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass }
-    });
-    pop_ads_json = JSON.parse(pop_ads_str.responseText);
+    }).responseText;
+    pop_ads_json = JSON.parse(pop_ads_str);
     update_table(pop_ads_json);
 }
 
@@ -123,8 +125,8 @@ function update_td_table(tr_id, td_name, value){
     if(td_name == "status")
         tr_elem.children[1].innerHTML = value
     else if(td_name == "next_bounce" && value.includes(':')){
-//        tr_elem.children[2].innerHTML = '<label class="countdown-timer">00:00:03</label>';
         tr_elem.children[2].innerHTML = '<label class="countdown-timer">'+getDiffTime(value)+'</label>';
+//        tr_elem.children[2].innerHTML = '<label class="countdown-timer">00:00:03</label>';
         start_countdown(tr_elem.children[2].children[0]);
     }
 }

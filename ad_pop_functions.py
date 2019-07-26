@@ -1,7 +1,7 @@
 import os
 import re
 import json
-import smtplib , ssl
+import smtplib, ssl
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, request, send_from_directory
@@ -148,6 +148,7 @@ def pop_ads():
     password = request.form['password']
     advertisements = json.loads(advertisements)
     if not advertisements:
+        print("no ads to pop.")
         return "{}"
     browser = login_to_yad2(username, password)
     for ad_url, status in advertisements.items():
@@ -157,8 +158,8 @@ def pop_ads():
             browser, pop_succeeded = rerun_expired_ad(browser, ad_url)
         next_bounce = get_next_bounce_time(browser)
         ad_name = get_ad_name(browser)
-        advertisements[ad_url] = [status, next_bounce, pop_succeeded,ad_name]
-    send_email(advertisements, username)
+        advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
+    # send_email(advertisements, username)
     browser.close()
     return advertisements
 

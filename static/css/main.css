@@ -179,7 +179,7 @@ body {
 /* Style the checkmark/indicator */
 .my_checkbox .checkmark:after {
   left: 3px;
-  top: 1px;
+  top: -1px;
   width: 5px;
   height: 10px;
   border: solid white;
