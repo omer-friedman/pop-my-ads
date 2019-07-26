@@ -1,4 +1,5 @@
 var check_boxes_counter = 0;
+var is_send_checkbox_checked = false;
 
 function handel_check_box_click(source) {
     if ($(source).attr("name" ) == "select_all") {
@@ -13,7 +14,7 @@ function handel_check_box_click(source) {
         else
             check_boxes_counter = 0;
     }
-    else {
+    else if ($(source).attr("name" ) == "popis") {
         check_boxes = document.getElementsByName('popis');
         select_all_check_box = document.getElementsByName('select_all');
         if(source.checked == true) {
@@ -25,6 +26,9 @@ function handel_check_box_click(source) {
             check_boxes_counter--;
             select_all_check_box[0].checked = source.checked;
         }
+    }
+    else{
+        is_send_checkbox_checked =  source.checked;
     }
 }
 
@@ -102,7 +106,11 @@ function start_popping_ads() {
         type: "POST",
         url: "/pop_ads",
         async: false,
-        data: { advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass }
+        data: { advertisements: JSON.stringify(urls_properties_dict), username: window.user_name,
+                 password: window.user_pass,
+                 send_email: String(is_send_checkbox_checked)
+                 
+                  }
     }).responseText;
     pop_ads_json = JSON.parse(pop_ads_str);
     update_table(pop_ads_json);

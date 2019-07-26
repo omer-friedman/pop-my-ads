@@ -146,6 +146,8 @@ def pop_ads():
     advertisements = request.form['advertisements']
     username = request.form['username']
     password = request.form['password']
+    need_to_send_email = request.form['send_email'] 
+    print(need_to_send_email)
     advertisements = json.loads(advertisements)
     if not advertisements:
         print("no ads to pop.")
@@ -159,7 +161,8 @@ def pop_ads():
         next_bounce = get_next_bounce_time(browser)
         ad_name = get_ad_name(browser)
         advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
-    # send_email(advertisements, username)
+    if (need_to_send_email == "true"):
+        send_email(advertisements, username)
     browser.close()
     return advertisements
 
@@ -196,4 +199,5 @@ def main():
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(host = '0.0.0.0',port=80)
+    # app.run(host = '0.0.0.0',port=80)
+    app.run()
