@@ -39,7 +39,6 @@ function get_ads_from_account_and_display_to_client(){
             data: { username: window.user_name, password: window.user_pass }
         });
         display_ads_to_client(jqXHR.responseText);
-//        display_ads_to_client("asd");
     });
     $("#logindiv").hide();
 }
@@ -82,7 +81,22 @@ function getDiffTime(next_bounce) {
     return actual_hours + ":" + actual_minutes + ":00";
 }
 
-function start_popping_ads() {
+function start_popping_ads(urls_properties_dict) {
+    console.log(urls_properties_dict);
+    var pop_ads_str = $.ajax({
+        type: "POST",
+        url: "/pop_ads",
+        async: true,
+        data: {advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass },
+        success: function(response_data){
+            console.log(response_data);
+            pop_ads_json = JSON.parse(response_data);
+            update_table(pop_ads_json);
+        }
+    });
+}
+
+function get_ads_dict_to_pop(){
     var urls_properties_dict = {};
     $('#ads_table tr').each(function () {
         if (this.id != "tbl_first_tr") {
@@ -94,18 +108,11 @@ function start_popping_ads() {
                     urls_properties_dict[this.id] = status;
                     this.children[2].innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
                 }
-                update_td_table(this.id, "next_bounce", next_bounce);
+//   TODO             update_td_table(this.id, "next_bounce", next_bounce);
             }
         }
     });
-    var pop_ads_str = $.ajax({
-        type: "POST",
-        url: "/pop_ads",
-        async: false,
-        data: { advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass }
-    }).responseText;
-    pop_ads_json = JSON.parse(pop_ads_str);
-    update_table(pop_ads_json);
+    return urls_properties_dict;
 }
 
 function update_table(pop_ads_json){
@@ -135,7 +142,8 @@ function handle_pop_or_stop_button() {
     var button_content = document.getElementById("btn_popstop");
     if (button_content.innerHTML == "POP MY ADS!") {
         button_content.innerHTML = "STOP";
-        start_popping_ads();
+        var ads_to_pop = get_ads_dict_to_pop();
+        start_popping_ads(ads_to_pop);
     }
     else
         button_content.innerHTML = "POP MY ADS!";

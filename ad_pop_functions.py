@@ -148,7 +148,6 @@ def pop_ads():
     password = request.form['password']
     advertisements = json.loads(advertisements)
     if not advertisements:
-        print("no ads to pop.")
         return "{}"
     browser = login_to_yad2(username, password)
     for ad_url, status in advertisements.items():
@@ -159,7 +158,6 @@ def pop_ads():
         next_bounce = get_next_bounce_time(browser)
         ad_name = get_ad_name(browser)
         advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
-    # send_email(advertisements, username)
     browser.close()
     return advertisements
 
