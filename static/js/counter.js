@@ -57,7 +57,7 @@ function start_countdown(countdown_elem){
     var countdown_time = countdown_elem.innerHTML;
     if(!countdown_time.includes(':'))
         return
-    var elapsed_milliseconds = Number(countdown_time.split(':')[0]) * 60 * 60 * 1000 +Number(countdown_time.split(':')[1]) * 60 * 1000 + Number(countdown_time.split(':')[2]) * 60 * 1000;
+    var elapsed_milliseconds = Number(countdown_time.split(':')[0]) * 60 * 60 * 1000 +Number(countdown_time.split(':')[1]) * 60 * 1000 + Number(countdown_time.split(':')[2]) * 1000;
     var stopwatch = new Stopwatch({
         'element': this,                  // DOM element
         'paused': false,                  // Status
@@ -67,7 +67,7 @@ function start_countdown(countdown_elem){
         'updateRate': 100,                // Update rate, in milliseconds
         'onTimeUp': function() {          // onTimeUp callback
             this.stop();
-            countdown_elem.innerHTML = 'STOPPED';
+            start_popping_ads()
         },
         'onTimeUpdate': function() {      // onTimeUpdate callback
             var t = this.elapsed,

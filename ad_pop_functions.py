@@ -1,7 +1,7 @@
 import os
 import re
 import json
-import smtplib , ssl
+import smtplib, ssl
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, request, send_from_directory
@@ -76,18 +76,18 @@ def rerun_expired_ad(browser, ad_url):
     expired_msg_xpath = "//div[@class='desc orange']/div[@class='expired_msg']/a[@href]"
     expired_url = browser.find_element_by_xpath(expired_msg_xpath).get_attribute('href')
     if not expired_url:
-        return [False, browser]
+        return [browser, False]
     browser.get(expired_url)
-    return [True, browser]
+    return [browser, True]
 
 
 def pop_active_ad(browser, ad_url):
     browser.get(ad_url)
     bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
     if not bounce_btn:
-        return [False, browser]
+        return [browser, False]
     bounce_btn.click()
-    return [True, browser]
+    return [browser, True]
 
 
 def get_ads_from_category_url(browser, category_url, ads):
@@ -112,6 +112,7 @@ def get_ads_from_category_url(browser, category_url, ads):
         ad = Advertisment(ad_name, ad_url, next_bounce_time, ad_status, is_bouncable)
         ads[str(len(ads))] = ad.__dict__
 
+
 def send_email(ads,reciver_email):
     smtp_server = "smtp.gmail.com"
     port = 587  # For starttls
@@ -122,15 +123,15 @@ def send_email(ads,reciver_email):
     subject = "אל תדאג נשמה של ברבור הקפצנו לך!"
     ad = ""
     for url, add_prop in ads:
-        add += "מודעתך \"" + add_prop[3] +" הוקפצה \"" + "כתובת : " + url + "\n"
+        ad += "מודעתך \"" + add_prop[3] +" הוקפצה \"" + "כתובת : " + url + "\n"
     try:
         server = smtplib.SMTP(smtp_server,port)
         server.ehlo() # Can be omitted
         server.starttls(context=context) # Secure the connection
         server.ehlo() # Can be omitted
         server.login(sender_email, password)
-        msg = "Subject: {}\n\n{}".format(subject,ad)
-        server.sendmail(sender_email,reciver_email,msg)
+        msg = "Subject: {}\n\n{}".format(subject, ad)
+        server.sendmail(sender_email, reciver_email, msg)
     except Exception as e:
         # Print any error messages to stdout
         print(e)
@@ -139,6 +140,7 @@ def send_email(ads,reciver_email):
         server.quit() 
         return "True"
 
+
 @app.route('/pop_ads', methods=['POST'])
 def pop_ads():
     advertisements = request.form['advertisements']
@@ -146,6 +148,7 @@ def pop_ads():
     password = request.form['password']
     advertisements = json.loads(advertisements)
     if not advertisements:
+        print("no ads to pop.")
         return "{}"
     browser = login_to_yad2(username, password)
     for ad_url, status in advertisements.items():
@@ -155,8 +158,8 @@ def pop_ads():
             browser, pop_succeeded = rerun_expired_ad(browser, ad_url)
         next_bounce = get_next_bounce_time(browser)
         ad_name = get_ad_name(browser)
-        advertisements[ad_url] = [status, next_bounce, pop_succeeded,ad_name]
-    send_email(advertisements,username) 
+        advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
+    # send_email(advertisements, username)
     browser.close()
     return advertisements
 
