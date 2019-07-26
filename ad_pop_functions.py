@@ -125,20 +125,19 @@ def send_email(ads,reciver_email):
     for url, add_prop in ads:
         ad += "מודעתך \"" + add_prop[3] +" הוקפצה \"" + "כתובת : " + url + "\n"
     try:
-        server = smtplib.SMTP(smtp_server,port)
-        server.ehlo() # Can be omitted
-        server.starttls(context=context) # Secure the connection
-        server.ehlo() # Can be omitted
+        server = smtplib.SMTP(smtp_server, port)
+        server.ehlo()
+        server.starttls(context=context)
+        server.ehlo()
         server.login(sender_email, password)
         msg = "Subject: {}\n\n{}".format(subject, ad)
         server.sendmail(sender_email, reciver_email, msg)
     except Exception as e:
-        # Print any error messages to stdout
         print(e)
         return "False"
-    finally:
-        server.quit() 
-        return "True"
+
+    server.quit()
+    return "True"
 
 
 @app.route('/pop_ads', methods=['POST'])
@@ -146,6 +145,7 @@ def pop_ads():
     advertisements = request.form['advertisements']
     username = request.form['username']
     password = request.form['password']
+    need_to_send_email = request.form['send_email'] 
     advertisements = json.loads(advertisements)
     if not advertisements:
         return "{}"
@@ -158,6 +158,8 @@ def pop_ads():
         next_bounce = get_next_bounce_time(browser)
         ad_name = get_ad_name(browser)
         advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
+    if need_to_send_email == "true":
+        send_email(advertisements, username)
     browser.close()
     return advertisements
 
@@ -193,4 +195,6 @@ def main():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.debug = True
+    # app.run(host = '0.0.0.0',port=80)
+    app.run()
