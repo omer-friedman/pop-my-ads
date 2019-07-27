@@ -93,7 +93,6 @@ function start_popping_ads(urls_properties_dict) {
         async: true,
         data: { advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass, send_email: String(is_send_checkbox_checked)},
         success: function(response_data){
-            console.log(response_data);
             pop_ads_json = JSON.parse(response_data);
             update_table(pop_ads_json);
         }
@@ -125,9 +124,9 @@ function update_table(pop_ads_json){
         var next_bounce = prop[1]
         var pop_succeeded = prop[2]
         if(status=="פג תוקף" && pop_succeeded)
-            update_td_table("status", "מודעה פעילה");
+            update_td_table(url, "status", "מודעה פעילה");
         if(pop_succeeded)
-            update_td_table("next_bounce", next_bounce);
+            update_td_table(url, "next_bounce", next_bounce);
     });
 }
 

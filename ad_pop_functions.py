@@ -148,7 +148,6 @@ def send_email(ads,reciver_email):
 
 @app.route('/pop_ads', methods=['POST'])
 def pop_ads():
-    advertisementss = {}
     advertisements = request.form['advertisements']
     username = request.form['username']
     password = request.form['password']
@@ -169,7 +168,7 @@ def pop_ads():
     if need_to_send_email :
         send_email(advertisements, username)
     browser.close()
-    return advertisements
+    return json.dumps(advertisements)
 
 
 def create_ad_dict(browser):
