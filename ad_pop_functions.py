@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
 import re
 import json
@@ -122,8 +124,12 @@ def send_email(ads,reciver_email):
     context = ssl.create_default_context()
     subject = "אל תדאג נשמה של ברבור הקפצנו לך!"
     ad = ""
-    for url, add_prop in ads:
-        ad += "מודעתך \"" + add_prop[3] +" הוקפצה \"" + "כתובת : " + url + "\n"
+    for url, add_prop in ads.items():
+        ad = "מודעתך \""
+        ad = u' '.join((ad,add_prop[3]))
+        ad = u' '.join((ad,"\" הוקפצה"))
+        ad = u' '.join((ad,"בכתובת"))
+        ad = u' '.join((ad,url))
     try:
         server = smtplib.SMTP(smtp_server, port)
         server.ehlo()
@@ -131,7 +137,7 @@ def send_email(ads,reciver_email):
         server.ehlo()
         server.login(sender_email, password)
         msg = "Subject: {}\n\n{}".format(subject, ad)
-        server.sendmail(sender_email, reciver_email, msg)
+        server.sendmail(sender_email, reciver_email, msg.encode('utf-8'))
     except Exception as e:
         print(e)
         return "False"
@@ -142,10 +148,12 @@ def send_email(ads,reciver_email):
 
 @app.route('/pop_ads', methods=['POST'])
 def pop_ads():
+    advertisementss = {}
     advertisements = request.form['advertisements']
     username = request.form['username']
     password = request.form['password']
-    need_to_send_email = request.form['send_email'] 
+    need_to_send_email = request.form['send_email']
+    need_to_send_email = bool(need_to_send_email) 
     advertisements = json.loads(advertisements)
     if not advertisements:
         return "{}"
@@ -158,7 +166,7 @@ def pop_ads():
         next_bounce = get_next_bounce_time(browser)
         ad_name = get_ad_name(browser)
         advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
-    if need_to_send_email == "true":
+    if need_to_send_email :
         send_email(advertisements, username)
     browser.close()
     return advertisements
