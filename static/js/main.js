@@ -42,8 +42,10 @@ function get_ads_from_account_and_display_to_client(){
             async: false,
             data: { username: window.user_name, password: window.user_pass }
         });
+        console.log(jqXHR.responseText);
         display_ads_to_client(jqXHR.responseText);
     });
+//        display_ads_to_client("asd");
     $("#logindiv").hide();
 }
 
@@ -59,7 +61,7 @@ function display_ads_to_client(ads) {
             ad_next_bounce = "NOW";
         else if (!ad_next_bounce)
             ad_next_bounce = "";
-        $('#ads_table tr:last').after('<tr id="' + ad_url + '"><td>' + ad_name + '</td><td>' + ad_status + '</td><td>' + ad_next_bounce + '</td><td><label class="my_checkbox"><input id="bouncebox' + i + '" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>');
+        $('#ads_table').append('<tr id="' + ad_url + '"><td>' + ad_name + '</td><td>' + ad_status + '</td><td>' + ad_next_bounce + '</td><td><label class="my_checkbox"><input id="bouncebox' + i + '" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>');
         if (ad_status != "מודעה פעילה" && ad_status != "פג תוקף")
             document.getElementById("bouncebox" + i).disabled = true;
     });
@@ -86,12 +88,11 @@ function getDiffTime(next_bounce) {
 }
 
 function start_popping_ads(urls_properties_dict) {
-    console.log(urls_properties_dict);
     var pop_ads_str = $.ajax({
         type: "POST",
         url: "/pop_ads",
         async: true,
-        data: { advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass, send_email: String(is_send_checkbox_checked)},
+        data: {advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass, send_email: String(is_send_checkbox_checked)},
         success: function(response_data){
             pop_ads_json = JSON.parse(response_data);
             update_table(pop_ads_json);
@@ -102,23 +103,22 @@ function start_popping_ads(urls_properties_dict) {
 function get_ads_dict_to_pop(){
     var urls_properties_dict = {};
     $('#ads_table tr').each(function () {
-        if (this.id != "tbl_first_tr") {
-            var status = this.children[1].innerHTML;
-            var next_bounce = this.children[2].innerHTML;
-            var pop_ad_checked = this.children[3].children[0].children[0].checked;
-            if (pop_ad_checked) {
-                if (!next_bounce.includes(':')){
-                    urls_properties_dict[this.id] = status;
-                    this.children[2].innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
-                }
-//   TODO             update_td_table(this.id, "next_bounce", next_bounce);
+        var status = this.children[1].innerHTML;
+        var next_bounce = this.children[2].innerHTML;
+        var pop_ad_checked = this.children[3].children[0].children[0].checked;
+        if (pop_ad_checked) {
+            if (!next_bounce.includes(':')){
+                urls_properties_dict[this.id] = status;
+                this.children[2].innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
             }
+            update_td_table(this.id, "next_bounce", next_bounce);
         }
     });
     return urls_properties_dict;
 }
 
 function update_table(pop_ads_json){
+    console.log(pop_ads_json);
     jQuery.each(pop_ads_json, function(url, prop){
         var status = prop[0]
         var next_bounce = prop[1]

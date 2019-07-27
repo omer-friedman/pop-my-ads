@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Assistant&display=swap);
 
 .login-page {
   width: 360px;
@@ -59,8 +60,9 @@ button {
 }
 
 body {
-  background: linear-gradient(to left, #ff7700, #ff7700);
-  font-family: "Roboto", sans-serif;
+  background: linear-gradient(to left, #de7118, #de7118);
+  font-family: 'Assistant', sans-serif;
+  font-weight: bold;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -70,46 +72,13 @@ body {
     top: 50%;
     left: 50%;
     width:50em;
-    height:18em;
-    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    height:30em;
+    margin-top: -15em; /*set to a negative number 1/2 of your height*/
     margin-left: -27em; /*set to a negative number 1/2 of your width*/
     background: transform;
     text-align: right;
-    overflow:auto;
 }
 
-#ads_table {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  table-layout: fixed;
-  border-collapse: collapse;
-  width: 100%;
-  text-align: center;
-  cursor: pointer;
-}
-
-#ads_table td{
-    padding: 8px;
-}
-
-#ads_table tr:first-child {background-color: #989c99;}
-#ads_table tr:first-child:hover {background-color: #989c99;}
-
-#ads_div tr {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 8px;
-}
-
-
-#ads_table tr:hover {background-color: #ddd;}
-
-#ads_table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
 
 .awesome_font{
   font-family: "Roboto", sans-serif;
@@ -124,9 +93,13 @@ body {
 }
 
 
+/****************/
+/*   CHECKBOX   */
+/****************/
+
 .my_checkbox {
   position: relative;
-  padding-left: 25px;
+  padding-left: 1px;
   margin-bottom: 0px;
   cursor: pointer;
   -webkit-user-select: none;
@@ -135,7 +108,6 @@ body {
   user-select: none;
 }
 
-/* Hide the browser's default checkbox */
 .my_checkbox input {
   position: absolute;
   opacity: 0;
@@ -144,39 +116,37 @@ body {
   width: 0;
 }
 
-/* Create a custom checkbox */
 .checkmark {
   position: absolute;
-  top: 0;
+  top: 2px;
   left: 0;
   height: 15px;
   width: 15px;
   background-color: #eee;
 }
 
-/* On mouse-over, add a grey background color */
 .my_checkbox:hover input ~ .checkmark {
   background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
 .my_checkbox input:checked ~ .checkmark {
   background-color: #2196F3;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
+span:disabled{
+    background-color: black;
+}
+
 .my_checkbox input:checked ~ .checkmark:after {
   display: block;
 }
 
-/* Style the checkmark/indicator */
 .my_checkbox .checkmark:after {
   left: 3px;
   top: -1px;
@@ -188,3 +158,85 @@ body {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+/****************/
+/*    TABLE     */
+/****************/
+
+
+
+#ads_table td{
+    padding: 8px;
+    height: 35.2px;
+    overflow: hidden;
+    text-align:center;
+}
+
+#ads_table td:first-child{
+    text-align: right;
+    padding-right:20px;
+}
+
+#ads_div tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+}
+
+#ads_div tr td:nth-child(1) {width: 40%;}
+#ads_div tr td:nth-child(2) {width: 20%;}
+#ads_div tr td:nth-child(3) {width: 20%;}
+#ads_div tr td:nth-child(4) {width: 20%;}
+
+#ads_table tr:hover {background-color: #ddd;}
+
+#table-wrapper {
+  position:relative;
+  height:70%;
+}
+#table-scroll {
+  height:100%;
+  border-left-style:solid;
+  border-right-style:solid;
+  border-left-color:black;
+  border-right-color:black;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+#table-wrapper table {
+  width:100%;
+}
+#table-wrapper table * {
+  color:black;
+}
+#table-wrapper table thead th .text {
+  position:absolute;
+  top:-20px;
+  z-index:2;
+  height:20px;
+  width:35%;
+  border:1px solid red;
+}
+
+
+/****************/
+/*  SCROLL BAR  */
+/****************/
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+

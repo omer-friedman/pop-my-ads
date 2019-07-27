@@ -8,12 +8,13 @@
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/loading.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/loading.css') }}">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body>
-    
+    <img style="height:130px; width: 170px; position: absolute;" src="{{ url_for('static', filename='images/popMyAds.png') }}">
     <div class="lds-hourglass" style="display: none;" ></div>
     <div id="logindiv" class="login-page">
         <div class="form">
@@ -25,26 +26,41 @@
         </div>
     </div>
     <div>
-        <div id="ads_div" dir="rtl" style="display: none;">
-            <table id="ads_table" cellspacing="0">
-                <tr id="tbl_first_tr">
-                    <td>שם מודעה</td>
-                    <td>סטטוס</td>
-                    <td>הקפצה הבאה</td>
-                    <td>
-                        <label class="my_checkbox">הקפץ הכל
+        <div id="ads_div" dir="rtl" style="display: none; ">
+            <div style="width:100%; height: 35.2px; text-align:center; line-height: 35.2px; vertical-align: middle; background-color:black; color:white;">
+                <div style="width:40%; height:100%; display:inline-block;">שם מודעה</div><div style="width:20%; height:100%; height:100%; display:inline-block;">סטטוס</div><div style="width:20%; height:100%; display:inline-block;">הקפצה הבאה</div><div style="width:20%; height:100%; display:inline-block;">
+                    <label class="my_checkbox"><label style="padding:0px 20px;">הקפץ הכל</label>
                         <input type="checkbox" name="select_all" onClick="handel_check_box_click(this)" />
-                        <span class="checkmark"></span>
-                        </label>
-                    </td>
-                    
-                </tr>
-            </table>
-            <label class="my_checkbox">קבל התראות במייל
+                        <span class="checkmark"></span></label>
+                </div>
+            </div>
+            <div id = "table-wrapper">
+                <div id="table-scroll">
+                    <table id="ads_table" cellspacing="0">
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox2" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox2" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox2" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox2" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox3" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox4" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox5" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox6" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox7" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox7" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox7" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox7" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox7" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox8" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        <!--<tr ><td>שם מודעה</td><td>סטטוס</td><td>הקפצה</td><td><label class="my_checkbox"><input id="bouncebox9" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>-->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <button id="btn_popstop" type="button" onclick="handle_pop_or_stop_button()">POP MY ADS!</button>
+            <label style="height: 35.2px; line-height: 35.2px; vertical-align: middle;" class="my_checkbox"><label style="padding:0px 25px;">קבל התראות למייל</label>
                 <input type="checkbox" name="email_checkbox" onClick="handel_check_box_click(this)" />
                 <span class="checkmark"></span>
             </label>
-            <button id="btn_popstop" type="button" onclick="handle_pop_or_stop_button()">POP MY ADS!</button>
         </div>
     </div>
 
