@@ -11,12 +11,13 @@ app = Flask(__name__, template_folder='.', static_url_path='')
 
 
 class Advertisment:
-    def __init__(self, ad_name, ad_url, ad_next_bounce, ad_status, is_bounce_valid=False):
+    def __init__(self, ad_name, ad_url, ad_next_bounce, ad_status, num_watched, is_bounce_valid=False):
         self.ad_name = ad_name
         self.ad_url = ad_url
         self.ad_next_bounce = ad_next_bounce
         self.ad_status = ad_status
         self.is_bounce_valid = is_bounce_valid
+        self.num_watched = num_watched
 
     def print_me(self):
         print("ad name:       "+self.ad_name.__str__())
@@ -73,6 +74,14 @@ def get_ad_name(browser):
     return ad_name
 
 
+def get_num_watched(browser):
+    try:
+        num_watched = browser.find_element_by_xpath('//*[@id="exposureResetTotal"]').get_attribute("value")
+    except:
+        num_watched = 0
+    return num_watched
+
+
 def rerun_expired_ad(browser, ad_url):
     browser.get(ad_url)
     expired_msg_xpath = "//div[@class='desc orange']/div[@class='expired_msg']/a[@href]"
@@ -111,7 +120,8 @@ def get_ads_from_category_url(browser, category_url, ads):
             next_bounce_time = ""
             is_bouncable = False
         ad_name = get_ad_name(browser)
-        ad = Advertisment(ad_name, ad_url, next_bounce_time, ad_status, is_bouncable)
+        num_watched = get_num_watched(browser)
+        ad = Advertisment(ad_name, ad_url, next_bounce_time, ad_status, num_watched, is_bouncable)
         ads[str(len(ads))] = ad.__dict__
 
 
@@ -120,16 +130,16 @@ def send_email(ads,reciver_email):
     port = 587  # For starttls
     sender_email = "popmyads2@gmail.com"
     password = "Bbamba!YAD2"
-    # Create a secure SSL context
     context = ssl.create_default_context()
     subject = "אל תדאג נשמה של ברבור הקפצנו לך!"
     ad = ""
     for url, add_prop in ads.items():
-        ad = "מודעתך \""
-        ad = u' '.join((ad,add_prop[3]))
-        ad = u' '.join((ad,"\" הוקפצה"))
-        ad = u' '.join((ad,"בכתובת"))
-        ad = u' '.join((ad,url))
+        ad += "מודעתך \""
+        ad += u' '.join((ad, add_prop[3]))
+        ad += u' '.join((ad, "\" הוקפצה"))
+        ad += u' '.join((ad, "בכתובת"))
+        ad += u' '.join((ad, url))
+        ad += u' '.join((ad, "\n\n"))
     try:
         server = smtplib.SMTP(smtp_server, port)
         server.ehlo()
@@ -141,19 +151,16 @@ def send_email(ads,reciver_email):
     except Exception as e:
         print(e)
         return "False"
-
     server.quit()
     return "True"
 
 
 @app.route('/pop_ads', methods=['POST'])
 def pop_ads():
-    advertisementss = {}
     advertisements = request.form['advertisements']
     username = request.form['username']
     password = request.form['password']
-    need_to_send_email = request.form['send_email']
-    need_to_send_email = bool(need_to_send_email) 
+    need_to_send_email = (request.form['send_email'] == "true")
     advertisements = json.loads(advertisements)
     if not advertisements:
         return "{}"
@@ -163,13 +170,13 @@ def pop_ads():
             browser, pop_succeeded = pop_active_ad(browser, ad_url)
         else:
             browser, pop_succeeded = rerun_expired_ad(browser, ad_url)
-        next_bounce = get_next_bounce_time(browser)
+        next_bounce = get_four_hours_from_now()
         ad_name = get_ad_name(browser)
         advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
-    if need_to_send_email :
+    if need_to_send_email:
         send_email(advertisements, username)
     browser.close()
-    return advertisements
+    return json.dumps(advertisements)
 
 
 def create_ad_dict(browser):
@@ -178,6 +185,14 @@ def create_ad_dict(browser):
     for category_url in active_categories_url:
         get_ads_from_category_url(browser, category_url, ads)
     return ads
+
+
+def get_four_hours_from_now():
+    import datetime
+    current_dt = datetime.datetime.now()
+    hours = str((current_dt.hour+4) % 24)
+    minutes = str(current_dt.minute)
+    return hours+":"+minutes
 
 
 @app.route("/")
@@ -198,7 +213,6 @@ def main():
     browser = login_to_yad2(user_name, password)
     advertisements = create_ad_dict(browser)
     browser.close()
-    # reorder_expired_ads
     return advertisements
 
 
@@ -206,3 +220,4 @@ if __name__ == "__main__":
     app.debug = True
     # app.run(host = '0.0.0.0',port=80)
     app.run()
+

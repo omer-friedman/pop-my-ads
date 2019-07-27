@@ -183,10 +183,11 @@ span:disabled{
     padding: 8px;
 }
 
-#ads_div tr td:nth-child(1) {width: 40%;}
-#ads_div tr td:nth-child(2) {width: 20%;}
-#ads_div tr td:nth-child(3) {width: 20%;}
-#ads_div tr td:nth-child(4) {width: 20%;}
+#ads_div tr td:nth-child(1) {width: 30%;}
+#ads_div tr td:nth-child(2) {width: 17.5%;}
+#ads_div tr td:nth-child(3) {width: 17.5%;}
+#ads_div tr td:nth-child(4) {width: 17.5%;}
+#ads_div tr td:nth-child(5) {width: 17.5%;}
 
 #ads_table tr:hover {background-color: #ddd;}
 

@@ -1,5 +1,4 @@
 var check_boxes_counter = 0;
-var is_send_checkbox_checked = false;
 
 function handel_check_box_click(source) {
     if ($(source).attr("name" ) == "select_all") {
@@ -27,9 +26,6 @@ function handel_check_box_click(source) {
             select_all_check_box[0].checked = source.checked;
         }
     }
-    else{
-        is_send_checkbox_checked =  source.checked;
-    }
 }
 
 function get_ads_from_account_and_display_to_client(){
@@ -42,10 +38,8 @@ function get_ads_from_account_and_display_to_client(){
             async: false,
             data: { username: window.user_name, password: window.user_pass }
         });
-        console.log(jqXHR.responseText);
         display_ads_to_client(jqXHR.responseText);
     });
-//        display_ads_to_client("asd");
     $("#logindiv").hide();
 }
 
@@ -57,11 +51,12 @@ function display_ads_to_client(ads) {
         var ad_status = ad.ad_status;
         var is_bounce_valid = ad.is_bounce_valid;
         var ad_url = ad.ad_url;
+        var num_watched = ad.num_watched;
         if (!ad_next_bounce && is_bounce_valid)
             ad_next_bounce = "NOW";
         else if (!ad_next_bounce)
             ad_next_bounce = "";
-        $('#ads_table').append('<tr id="' + ad_url + '"><td>' + ad_name + '</td><td>' + ad_status + '</td><td>' + ad_next_bounce + '</td><td><label class="my_checkbox"><input id="bouncebox' + i + '" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>');
+        $('#ads_table').append('<tr id="' + ad_url + '"><td>' + ad_name + '</td><td>' + num_watched + '</td><td>' + ad_status + '</td><td>' + ad_next_bounce + '</td><td><label class="my_checkbox"><input id="bouncebox' + i + '" type="checkbox" name="popis" onClick="handel_check_box_click(this)"><span class="checkmark"></span></label></td></tr>');
         if (ad_status != "מודעה פעילה" && ad_status != "פג תוקף")
             document.getElementById("bouncebox" + i).disabled = true;
     });
@@ -79,20 +74,25 @@ function getDiffTime(next_bounce) {
     var now_hour = Number(today.getHours());
     var now_minutes = Number(today.getMinutes());
     actual_minutes = next_minutes - now_minutes;
-    actual_hours = (next_hour - now_hour - 1);
-    if (actual_minutes < 0)
+    actual_hours = (next_hour - now_hour);
+    if (actual_minutes < 0){
         actual_minutes = String(60 + actual_minutes);
+        actual_hours -= 1;
+    }
     if (actual_hours < 0)
         actual_hours = String(24 + actual_hours);
     return actual_hours + ":" + actual_minutes + ":00";
 }
 
 function start_popping_ads(urls_properties_dict) {
+    is_send_checkbox_checked = String(document.getElementById("email_checkbox").checked);
+    if(!urls_properties_dict)
+        return;
     var pop_ads_str = $.ajax({
         type: "POST",
         url: "/pop_ads",
         async: true,
-        data: {advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass, send_email: String(is_send_checkbox_checked)},
+        data: {advertisements: JSON.stringify(urls_properties_dict), username: window.user_name, password: window.user_pass, send_email: is_send_checkbox_checked},
         success: function(response_data){
             pop_ads_json = JSON.parse(response_data);
             update_table(pop_ads_json);
@@ -103,13 +103,13 @@ function start_popping_ads(urls_properties_dict) {
 function get_ads_dict_to_pop(){
     var urls_properties_dict = {};
     $('#ads_table tr').each(function () {
-        var status = this.children[1].innerHTML;
-        var next_bounce = this.children[2].innerHTML;
-        var pop_ad_checked = this.children[3].children[0].children[0].checked;
+        var status = this.children[2].innerHTML;
+        var next_bounce = this.children[3].innerHTML;
+        var pop_ad_checked = this.children[4].children[0].children[0].checked;
         if (pop_ad_checked) {
             if (!next_bounce.includes(':')){
                 urls_properties_dict[this.id] = status;
-                this.children[2].innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
+                this.children[3].innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>';
             }
             update_td_table(this.id, "next_bounce", next_bounce);
         }
@@ -118,26 +118,24 @@ function get_ads_dict_to_pop(){
 }
 
 function update_table(pop_ads_json){
-    console.log(pop_ads_json);
     jQuery.each(pop_ads_json, function(url, prop){
         var status = prop[0]
         var next_bounce = prop[1]
         var pop_succeeded = prop[2]
         if(status=="פג תוקף" && pop_succeeded)
-            update_td_table("status", "מודעה פעילה");
+            update_td_table(url, "status", "מודעה פעילה");
         if(pop_succeeded)
-            update_td_table("next_bounce", next_bounce);
+            update_td_table(url, "next_bounce", next_bounce);
     });
 }
 
 function update_td_table(tr_id, td_name, value){
-    var tr_elem = document.getElementById(tr_id)
+    var tr_elem = document.getElementById(tr_id);
     if(td_name == "status")
-        tr_elem.children[1].innerHTML = value
+        tr_elem.children[2].innerHTML = value
     else if(td_name == "next_bounce" && value.includes(':')){
-        tr_elem.children[2].innerHTML = '<label class="countdown-timer">'+getDiffTime(value)+'</label>';
-//        tr_elem.children[2].innerHTML = '<label class="countdown-timer">00:00:03</label>';
-        start_countdown(tr_elem.children[2].children[0]);
+        tr_elem.children[3].innerHTML = '<label class="countdown-timer">'+value+'</label>';
+        start_countdown(tr_elem.children[3].children[0]);
     }
 }
 
@@ -148,6 +146,7 @@ function handle_pop_or_stop_button() {
         var ads_to_pop = get_ads_dict_to_pop();
         start_popping_ads(ads_to_pop);
     }
-    else
+    else {
         button_content.innerHTML = "POP MY ADS!";
+    }
 }
