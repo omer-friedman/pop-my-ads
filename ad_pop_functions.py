@@ -92,9 +92,10 @@ def rerun_expired_ad(browser, ad_url):
     return [browser, True]
 
 
-def pop_active_ad(browser, ad_url):
-    browser.get(ad_url)
+def pop_active_ad(browser):
     bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
+    print("popped")
+    return [browser, True]
     if not bounce_btn:
         return [browser, False]
     bounce_btn.click()
@@ -134,12 +135,12 @@ def send_email(ads,reciver_email):
     subject = "אל תדאג נשמה של ברבור הקפצנו לך!"
     ad = ""
     for url, add_prop in ads.items():
-        ad += "מודעתך \""
-        ad += u' '.join((ad, add_prop[3]))
-        ad += u' '.join((ad, "\" הוקפצה"))
-        ad += u' '.join((ad, "בכתובת"))
-        ad += u' '.join((ad, url))
-        ad += u' '.join((ad, "\n\n"))
+        ad = u' '.join((ad, "מודעתך \""))
+        ad = u' '.join((ad, add_prop[3]))
+        ad = u' '.join((ad, "\" הוקפצה"))
+        ad = u' '.join((ad, "בכתובת"))
+        ad = u' '.join((ad, url))
+        ad = u' '.join((ad, "\n\n"))
     try:
         server = smtplib.SMTP(smtp_server, port)
         server.ehlo()
@@ -165,11 +166,13 @@ def pop_ads():
     if not advertisements:
         return "{}"
     browser = login_to_yad2(username, password)
+    print(advertisements)
     for ad_url, status in advertisements.items():
+        browser.get(ad_url)
         if status == "מודעה פעילה":
-            browser, pop_succeeded = pop_active_ad(browser, ad_url)
+            pop_succeeded = pop_active_ad(browser)
         else:
-            browser, pop_succeeded = rerun_expired_ad(browser, ad_url)
+            pop_succeeded = rerun_expired_ad(browser)
         next_bounce = get_four_hours_from_now()
         ad_name = get_ad_name(browser)
         advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
