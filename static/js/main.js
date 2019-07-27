@@ -32,7 +32,12 @@ function handel_check_box_click(source) {
     }
 }
 
-function get_ads_from_account_and_display_to_client(){
+function back_to_login() {
+    $("#logindiv").show();
+    $(".lds-hourglass").hide(); 
+    $("#ads_div").hide();}
+
+function get_ads_from_account_and_display_to_client() {
     window.user_name = document.getElementById("username").value;
     window.user_pass = document.getElementById("password").value;
     $(".lds-hourglass").show(function () {
