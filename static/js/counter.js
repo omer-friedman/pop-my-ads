@@ -67,11 +67,15 @@ function start_countdown(countdown_elem){
         'timeLimit': 0,                   // Time limit in milliseconds
         'updateRate': 100,                // Update rate, in milliseconds
         'onTimeUp': function() {          // onTimeUp callback
-//            $(countdown_elem).parent().text("00:00");
-         console.write("onTimeUp!");
+         this.stop();
+         $(countdown_elem).parent().text("NOW");
+         console.log("1")
+         console.log(countdown_elem.innerHTML);
+         console.log("2")
          var ads_to_pop = get_ads_dict_to_pop();
+         console.log("3")
          start_popping_ads(ads_to_pop);
-//            this.stop();
+         console.log("4")
         },
         'onTimeUpdate': function() {      // onTimeUpdate callback
             var t = this.elapsed,
