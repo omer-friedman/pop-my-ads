@@ -27,14 +27,12 @@ Stopwatch.prototype.keepCounting = function() {
   var btn_popstop_content = document.getElementById("btn_popstop").innerHTML;
   if(btn_popstop_content == "POP MY ADS!")
     this.onStop();
-  if (this.paused) {
+  if (this.paused)
     return true;
-  }
   var now = new Date().getTime();
   var diff = (now - this.previousTime);
-  if (!this.countingUp) {
+  if (!this.countingUp)
     diff = -diff;
-  }
   this.elapsed = this.elapsed + diff;
   this.previousTime = now;
   this.onTimeUpdate();
@@ -70,8 +68,10 @@ function start_countdown(countdown_elem){
         'updateRate': 100,                // Update rate, in milliseconds
         'onTimeUp': function() {          // onTimeUp callback
 //            $(countdown_elem).parent().text("00:00");
-            start_popping_ads();
-            this.stop();
+         console.write("onTimeUp!");
+         var ads_to_pop = get_ads_dict_to_pop();
+         start_popping_ads(ads_to_pop);
+//            this.stop();
         },
         'onTimeUpdate': function() {      // onTimeUpdate callback
             var t = this.elapsed,

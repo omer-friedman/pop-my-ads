@@ -36,18 +36,18 @@ function back_to_login() {
 function get_ads_from_account_and_display_to_client() {
     window.user_name = document.getElementById("username").value;
     window.user_pass = document.getElementById("password").value;
-//    $(".lds-hourglass").show(function () {
-//        var jqXHR = $.ajax({
-//            type: "POST",
-//            url: "/main",
-//            async: false,
-//            data: { username: window.user_name, password: window.user_pass }
-//        });
-//        console.log(jqXHR.responseText);
-        jqXHR="{\"0\":{\"ad_name\": \"\u05d6\u05d5\u05d2 \u05db\u05e8\u05d9\u05d5\u05ea\", \"ad_next_bounce\": \"00:49\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39246533\", \"is_bounce_valid\": false, \"num_watched\": \"\u05d0\u05d9\u05df\"}, \"1\": {\"ad_name\": \"\u05e1\u05e4\u05d4 \u05d6\u05d5\u05d2\u05d9\u05ea\", \"ad_next_bounce\": \"00:47\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39246516\", \"is_bounce_valid\": false, \"num_watched\": \"\u05d0\u05d9\u05df\"}, \"2\": {\"ad_name\": \"\u05d1\u05e7\u05d1\u05d5\u05e7\u05d9 \u05ea\u05d9\u05e0\u05d5\u05e7\", \"ad_next_bounce\": \"00:45\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39246486\", \"is_bounce_valid\": false, \"num_watched\": \"\u05d0\u05d9\u05df\"}, \"3\": {\"ad_name\": \"\u05e9\u05e8 \u05d4\u05d8\u05d1\u05e2\u05d5\u05ea\", \"ad_next_bounce\": \"00:39\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=38538761\", \"is_bounce_valid\": false, \"num_watched\": \"11\"}, \"4\": {\"ad_name\": \"\u05e0\u05e8 \u05e9\u05de\u05df \u05e9\u05dc \u05e4\u05e8\u05d7 \u05dc\u05d5\u05d8\u05d5\u05e1\", \"ad_next_bounce\": \"00:39\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39235781\", \"is_bounce_valid\": false, \"num_watched\": \"\u05d0\u05d9\u05df\"}, \"5\": {\"ad_name\": \"\u05d0\u05d1\u05df \u05d0\u05e9\", \"ad_next_bounce\": \"23:33\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=38538786\", \"is_bounce_valid\": false, \"num_watched\": \"12\"}, \"6\": {\"ad_name\": \"\u05e4\u05dc\u05d0\u05e4\u05d5\u05df \u05d1\u05de\u05e6\u05d1 \u05de\u05e9\u05d5\u05de\u05e9\", \"ad_next_bounce\": \"\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39235807\", \"is_bounce_valid\": true, \"num_watched\": \"5\"}, \"7\": {\"ad_name\": \"\u05e7\u05d5\u05dc\u05e8 \u05d7\u05d3\u05e9 \u05d9\u05d7\u05e1\u05d9\u05ea \u05d1\u05df \u05e9\u05e0\u05ea\u05d9\u05d9\u05dd. \u05e6\u05d1\u05e2 \u05db\u05d7\u05d5\u05dc \u05d3\u05d4\u05d5\u05d9 70 \u05e9\u05e7\u05dc\", \"ad_next_bounce\": \"\", \"ad_status\": \"\u05e4\u05d2 \u05ea\u05d5\u05e7\u05e3\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=5&SubCatID=0&OrderID=38538844\", \"is_bounce_valid\": false, \"num_watched\": \"9\"}}"
-        display_ads_to_client(jqXHR);
-//        display_ads_to_client(jqXHR.responseText);
-//    });
+    $(".lds-hourglass").show(function () {
+        var jqXHR = $.ajax({
+            type: "POST",
+            url: "/main",
+            async: false,
+            data: { username: window.user_name, password: window.user_pass }
+        });
+        console.log(jqXHR.responseText);
+//        jqXHR="{\"0\":{\"ad_name\": \"\u05d6\u05d5\u05d2 \u05db\u05e8\u05d9\u05d5\u05ea\", \"ad_next_bounce\": \"00:49\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39246533\", \"is_bounce_valid\": false, \"num_watched\": \"\u05d0\u05d9\u05df\"}, \"1\": {\"ad_name\": \"\u05e1\u05e4\u05d4 \u05d6\u05d5\u05d2\u05d9\u05ea\", \"ad_next_bounce\": \"00:47\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39246516\", \"is_bounce_valid\": false, \"num_watched\": \"\u05d0\u05d9\u05df\"}, \"2\": {\"ad_name\": \"\u05d1\u05e7\u05d1\u05d5\u05e7\u05d9 \u05ea\u05d9\u05e0\u05d5\u05e7\", \"ad_next_bounce\": \"00:45\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39246486\", \"is_bounce_valid\": false, \"num_watched\": \"\u05d0\u05d9\u05df\"}, \"3\": {\"ad_name\": \"\u05e9\u05e8 \u05d4\u05d8\u05d1\u05e2\u05d5\u05ea\", \"ad_next_bounce\": \"00:39\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=38538761\", \"is_bounce_valid\": false, \"num_watched\": \"11\"}, \"4\": {\"ad_name\": \"\u05e0\u05e8 \u05e9\u05de\u05df \u05e9\u05dc \u05e4\u05e8\u05d7 \u05dc\u05d5\u05d8\u05d5\u05e1\", \"ad_next_bounce\": \"00:39\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39235781\", \"is_bounce_valid\": false, \"num_watched\": \"\u05d0\u05d9\u05df\"}, \"5\": {\"ad_name\": \"\u05d0\u05d1\u05df \u05d0\u05e9\", \"ad_next_bounce\": \"23:33\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=38538786\", \"is_bounce_valid\": false, \"num_watched\": \"12\"}, \"6\": {\"ad_name\": \"\u05e4\u05dc\u05d0\u05e4\u05d5\u05df \u05d1\u05de\u05e6\u05d1 \u05de\u05e9\u05d5\u05de\u05e9\", \"ad_next_bounce\": \"\", \"ad_status\": \"\u05de\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=3&SubCatID=0&OrderID=39235807\", \"is_bounce_valid\": true, \"num_watched\": \"5\"}, \"7\": {\"ad_name\": \"\u05e7\u05d5\u05dc\u05e8 \u05d7\u05d3\u05e9 \u05d9\u05d7\u05e1\u05d9\u05ea \u05d1\u05df \u05e9\u05e0\u05ea\u05d9\u05d9\u05dd. \u05e6\u05d1\u05e2 \u05db\u05d7\u05d5\u05dc \u05d3\u05d4\u05d5\u05d9 70 \u05e9\u05e7\u05dc\", \"ad_next_bounce\": \"\", \"ad_status\": \"\u05e4\u05d2 \u05ea\u05d5\u05e7\u05e3\", \"ad_url\": \"http://my.yad2.co.il/newOrder/index.php?action=personalAreaViewDetails&CatID=5&SubCatID=0&OrderID=38538844\", \"is_bounce_valid\": false, \"num_watched\": \"9\"}}"
+//        display_ads_to_client(jqXHR);
+        display_ads_to_client(jqXHR.responseText);
+    });
     $("#logindiv").hide();
 }
 
@@ -145,8 +145,7 @@ function update_td_table(tr_id, td_name, value){
     if(td_name == "status")
         tr_elem.children[2].innerHTML = value
     else if(td_name == "next_bounce" && value.includes(':')){
-//        tr_elem.children[3].innerHTML = '<label class="countdown-timer">'+value+'</label>';
-        tr_elem.children[3].innerHTML = '<label class="countdown-timer">00:00:02</label>';
+        tr_elem.children[3].innerHTML = '<label class="countdown-timer">'+value+'</label>';
         start_countdown(tr_elem.children[3].children[0]);
     }
 }
