@@ -133,14 +133,14 @@ body {
   background-color: #2196F3;
 }
 
+input[type="checkbox"]:disabled + span{
+  opacity: 0.2;
+}
+
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
-}
-
-span:disabled{
-    background-color: black;
 }
 
 .my_checkbox input:checked ~ .checkmark:after {

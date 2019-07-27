@@ -89,13 +89,13 @@ def rerun_expired_ad(browser, ad_url):
     if not expired_url:
         return [browser, False]
     browser.get(expired_url)
+    browser.get(ad_url)
     return [browser, True]
 
 
-def pop_active_ad(browser):
+def pop_active_ad(browser, ad_url):
+    browser.get(ad_url)
     bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
-    # print("popped")
-    # return [browser, True]
     if not bounce_btn:
         return [browser, False]
     bounce_btn.click()
@@ -166,18 +166,18 @@ def pop_ads():
     if not advertisements:
         return "{}"
     browser = login_to_yad2(username, password)
-    print(advertisements)
     for ad_url, status in advertisements.items():
         browser.get(ad_url)
         if status == "מודעה פעילה":
-            pop_succeeded = pop_active_ad(browser)
+            browser, pop_succeeded = pop_active_ad(browser, ad_url)
         else:
-            pop_succeeded = rerun_expired_ad(browser)
+            browser, pop_succeeded = rerun_expired_ad(browser, ad_url)
         next_bounce = get_four_hours_from_now()
         ad_name = get_ad_name(browser)
         advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
     if need_to_send_email:
         send_email(advertisements, username)
+    print(advertisements)
     browser.close()
     return json.dumps(advertisements)
 

@@ -69,8 +69,9 @@ function start_countdown(countdown_elem){
         'timeLimit': 0,                   // Time limit in milliseconds
         'updateRate': 100,                // Update rate, in milliseconds
         'onTimeUp': function() {          // onTimeUp callback
+//            $(countdown_elem).parent().text("00:00");
+            start_popping_ads();
             this.stop();
-            start_popping_ads()
         },
         'onTimeUpdate': function() {      // onTimeUpdate callback
             var t = this.elapsed,
