@@ -94,8 +94,8 @@ def rerun_expired_ad(browser, ad_url):
 
 def pop_active_ad(browser):
     bounce_btn = browser.find_element_by_xpath("//*[@id='bounceRatingOrderBtn']")
-    print("popped")
-    return [browser, True]
+    # print("popped")
+    # return [browser, True]
     if not bounce_btn:
         return [browser, False]
     bounce_btn.click()
