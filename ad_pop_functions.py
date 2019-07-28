@@ -34,6 +34,7 @@ def login_to_yad2(username, password):
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
     browser = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
+    # browser = webdriver.Chrome("chromedriver75win")
     browser.get("https://yad2.co.il/login.php")
     if not browser.current_url == "https://my.yad2.co.il/login.php":
         return browser
@@ -217,6 +218,6 @@ def main():
 
 if __name__ == "__main__":
     app.debug = True
-    app.run(host = '0.0.0.0',port=80)
-    #app.run()
+    # app.run(host = '0.0.0.0',port=80)
+    app.run()
 
