@@ -7,6 +7,8 @@ import smtplib, ssl
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, request, send_from_directory
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 app = Flask(__name__, template_folder='.', static_url_path='')
 
 
@@ -28,15 +30,11 @@ class Advertisment:
 
 
 def login_to_yad2(username, password):
-    try:
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--headless')
-        browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    except:
-        browser = webdriver.Chrome("chromedriver75win")
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+    browser = webdriver.Chrome()
     browser.get("https://yad2.co.il/login.php")
     if not browser.current_url == "https://my.yad2.co.il/login.php":
         return browser
