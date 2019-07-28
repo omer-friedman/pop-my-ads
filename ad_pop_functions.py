@@ -4,7 +4,6 @@ import os
 import re
 import json
 import smtplib, ssl
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from flask import Flask, render_template, request, send_from_directory
 from selenium import webdriver
@@ -31,10 +30,10 @@ class Advertisment:
 
 def login_to_yad2(username, password):
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')
-    browser = webdriver.Chrome()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    browser = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
     browser.get("https://yad2.co.il/login.php")
     if not browser.current_url == "https://my.yad2.co.il/login.php":
         return browser
@@ -175,7 +174,6 @@ def pop_ads():
         advertisements[ad_url] = [status, next_bounce, pop_succeeded, ad_name]
     if need_to_send_email:
         send_email(advertisements, username)
-    print(advertisements)
     browser.close()
     return json.dumps(advertisements)
 
@@ -219,6 +217,6 @@ def main():
 
 if __name__ == "__main__":
     app.debug = True
-    # app.run(host = '0.0.0.0',port=443)
-    app.run()
+    app.run(host = '0.0.0.0',port=80)
+    #app.run()
 
